@@ -1,0 +1,6 @@
+{
+  "name": "TechRador",
+  "description": "TechRador — Independent Journal of Cutting-Edge Technology, Silicon Architecture, and Digital Living. Published Daily.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
