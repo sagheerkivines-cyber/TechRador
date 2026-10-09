@@ -21,6 +21,8 @@ interface ArticleGridProps {
   onToggleSave: (articleId: string) => void;
   selectedCategoryId?: CategoryId | 'all';
   onSelectCategory?: (categoryId: CategoryId | 'all') => void;
+  viewMode?: 'grid' | 'list';
+  onViewModeChange?: (mode: 'grid' | 'list') => void;
 }
 
 const ITEMS_PER_PAGE = 6;
@@ -32,11 +34,13 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({
   onToggleSave,
   selectedCategoryId = 'all',
   onSelectCategory,
+  viewMode: propViewMode,
+  onViewModeChange: propOnViewModeChange,
 }) => {
   const [activeCategory, setActiveCategory] = useState<CategoryId | 'all'>(selectedCategoryId);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchFilter, setSearchFilter] = useState<string>('');
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>(() => {
+  const [internalViewMode, setInternalViewMode] = useState<'grid' | 'list'>(() => {
     try {
       const saved = localStorage.getItem('techrador_view_mode');
       return saved === 'list' ? 'list' : 'grid';
@@ -45,8 +49,14 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({
     }
   });
 
+  const activeViewMode = propViewMode ?? internalViewMode;
+
   const handleViewModeChange = (mode: 'grid' | 'list') => {
-    setViewMode(mode);
+    if (propOnViewModeChange) {
+      propOnViewModeChange(mode);
+    } else {
+      setInternalViewMode(mode);
+    }
     try {
       localStorage.setItem('techrador_view_mode', mode);
     } catch {
@@ -129,7 +139,7 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({
               <button
                 onClick={() => handleViewModeChange('grid')}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-medium transition-all duration-200 ${
-                  viewMode === 'grid'
+                  activeViewMode === 'grid'
                     ? 'bg-yellow-400 text-slate-950 font-bold shadow-[0_0_12px_rgba(250,204,21,0.35)]'
                     : 'text-slate-300 hover:text-yellow-300 hover:bg-emerald-900/40'
                 }`}
@@ -143,7 +153,7 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({
               <button
                 onClick={() => handleViewModeChange('list')}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-medium transition-all duration-200 ${
-                  viewMode === 'list'
+                  activeViewMode === 'list'
                     ? 'bg-yellow-400 text-slate-950 font-bold shadow-[0_0_12px_rgba(250,204,21,0.35)]'
                     : 'text-slate-300 hover:text-yellow-300 hover:bg-emerald-900/40'
                 }`}
@@ -217,7 +227,7 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({
 
         {/* Article Grid / List Container */}
         {currentArticles.length > 0 ? (
-          <div className={viewMode === 'grid'
+          <div className={activeViewMode === 'grid'
             ? "mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
             : "mt-8 flex flex-col gap-5"
           }>
@@ -225,7 +235,7 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({
               <ArticleCard
                 key={article.id}
                 article={article}
-                layout={viewMode}
+                layout={activeViewMode}
                 onSelect={onSelectArticle}
                 isSaved={savedArticleIds.includes(article.id)}
                 onToggleSave={onToggleSave}

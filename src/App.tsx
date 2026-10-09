@@ -19,12 +19,32 @@ import { SearchModal } from './components/SearchModal';
 import { BookmarksDrawer } from './components/BookmarksDrawer';
 import { EditorialPoliciesModal } from './components/EditorialPoliciesModal';
 import { Footer } from './components/Footer';
+import { CustomCursor } from './components/CustomCursor';
+import { HomeFeedControlsBar } from './components/HomeFeedControlsBar';
 
 import { ARTICLES, getArticleById } from './data/articles';
 import { CategoryId, ViewState } from './types';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<ViewState>({ type: 'home' });
+  const [feedViewMode, setFeedViewMode] = useState<'grid' | 'list'>(() => {
+    try {
+      const saved = localStorage.getItem('techrador_view_mode');
+      return saved === 'list' ? 'list' : 'grid';
+    } catch {
+      return 'grid';
+    }
+  });
+
+  const handleFeedViewModeChange = (mode: 'grid' | 'list') => {
+    setFeedViewMode(mode);
+    try {
+      localStorage.setItem('techrador_view_mode', mode);
+    } catch {
+      // ignore
+    }
+  };
+
   const [savedArticleIds, setSavedArticleIds] = useState<string[]>(() => {
     try {
       const stored = localStorage.getItem('techrador_bookmarks');
@@ -100,6 +120,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#0b2721] text-[#e2e8f0] flex flex-col font-sans selection:bg-[#10b981]/30 selection:text-white">
+      {/* High-tech Custom Cursor Animation */}
+      <CustomCursor />
+
       {/* Universal Navigation Header */}
       <Navbar
         currentView={currentView}
@@ -108,6 +131,8 @@ export default function App() {
         onOpenSearch={() => setSearchModalOpen(true)}
         onOpenBookmarks={() => setBookmarksDrawerOpen(true)}
         onOpenPolicies={() => handleOpenPolicies('standards')}
+        viewMode={feedViewMode}
+        onToggleViewMode={handleFeedViewModeChange}
       />
 
       {/* Main View Router */}
@@ -132,6 +157,13 @@ export default function App() {
               }}
             />
 
+            {/* Prominent Home Feed Display Mode Switcher (Grid & List View) */}
+            <HomeFeedControlsBar
+              viewMode={feedViewMode}
+              onViewModeChange={handleFeedViewModeChange}
+              totalArticles={ARTICLES.length}
+            />
+
             <ShowcaseSection
               articles={ARTICLES}
               onSelectArticle={handleSelectArticle}
@@ -143,6 +175,8 @@ export default function App() {
               onSelectArticle={handleSelectArticle}
               savedArticleIds={savedArticleIds}
               onToggleSave={handleToggleSave}
+              viewMode={feedViewMode}
+              onViewModeChange={handleFeedViewModeChange}
             />
 
             <TrendingSection
