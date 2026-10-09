@@ -1,5 +1,5 @@
-import React from 'react';
-import { ArrowLeft, BookOpen, Layers, ArrowRight } from 'lucide-react';
+import React, { useState } from 'react';
+import { ArrowLeft, BookOpen, Layers, ArrowRight, LayoutGrid, LayoutList } from 'lucide-react';
 import { CategoryId, Article } from '../types';
 import { getCategoryById } from '../data/categories';
 import { ArticleCard } from './ArticleCard';
@@ -23,6 +23,23 @@ export const CategoryView: React.FC<CategoryViewProps> = ({
 }) => {
   const category = getCategoryById(categoryId);
   const categoryArticles = articles.filter(a => a.categoryId === categoryId);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>(() => {
+    try {
+      const saved = localStorage.getItem('techrador_view_mode');
+      return saved === 'list' ? 'list' : 'grid';
+    } catch {
+      return 'grid';
+    }
+  });
+
+  const handleViewModeChange = (mode: 'grid' | 'list') => {
+    setViewMode(mode);
+    try {
+      localStorage.setItem('techrador_view_mode', mode);
+    } catch {
+      // ignore
+    }
+  };
 
   if (!category) return null;
 
@@ -32,10 +49,10 @@ export const CategoryView: React.FC<CategoryViewProps> = ({
         {/* Back Button */}
         <button
           onClick={onBackToHome}
-          className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-900/60 bg-emerald-950/60 px-3 py-1.5 text-xs font-medium text-slate-300 hover:border-emerald-600 hover:text-white transition-colors mb-6"
+          className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-900/60 bg-emerald-950/60 px-3 py-1.5 text-xs font-medium text-slate-300 hover:border-yellow-400 hover:text-yellow-300 transition-colors mb-6"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
-          <span>Back to All Disciplines</span>
+          <span>Back to Home Feed</span>
         </button>
 
         {/* Category Hero Banner */}
@@ -74,22 +91,57 @@ export const CategoryView: React.FC<CategoryViewProps> = ({
           </div>
         </div>
 
-        {/* Articles Grid for this category */}
+        {/* Articles Section for this category */}
         <div>
-          <div className="flex items-center justify-between border-b border-emerald-900/60 pb-3 mb-6">
-            <h2 className="text-lg font-bold text-white font-sans">
-              Published Papers in {category.name}
-            </h2>
-            <span className="text-xs font-mono text-slate-400">
-              Showing {categoryArticles.length} of {categoryArticles.length} papers
-            </span>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-emerald-900/60 pb-3 mb-6 gap-3">
+            <div>
+              <h2 className="text-lg font-bold text-white font-sans">
+                Published Papers in {category.name}
+              </h2>
+              <span className="text-xs font-mono text-slate-400">
+                Showing {categoryArticles.length} peer-reviewed papers
+              </span>
+            </div>
+
+            {/* View Switcher Toggle */}
+            <div className="flex items-center rounded-lg border border-emerald-900/70 bg-[#071915] p-1 shadow-inner self-start sm:self-auto">
+              <button
+                onClick={() => handleViewModeChange('grid')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-medium transition-all duration-200 ${
+                  viewMode === 'grid'
+                    ? 'bg-yellow-400 text-slate-950 font-bold shadow-[0_0_12px_rgba(250,204,21,0.35)]'
+                    : 'text-slate-300 hover:text-yellow-300 hover:bg-emerald-900/40'
+                }`}
+                title="Grid View"
+              >
+                <LayoutGrid className="h-3.5 w-3.5" />
+                <span>Grid</span>
+              </button>
+
+              <button
+                onClick={() => handleViewModeChange('list')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-medium transition-all duration-200 ${
+                  viewMode === 'list'
+                    ? 'bg-yellow-400 text-slate-950 font-bold shadow-[0_0_12px_rgba(250,204,21,0.35)]'
+                    : 'text-slate-300 hover:text-yellow-300 hover:bg-emerald-900/40'
+                }`}
+                title="List View"
+              >
+                <LayoutList className="h-3.5 w-3.5" />
+                <span>List</span>
+              </button>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
+          <div className={viewMode === 'grid'
+            ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6"
+            : "flex flex-col gap-5"
+          }>
             {categoryArticles.map((article) => (
               <ArticleCard
                 key={article.id}
                 article={article}
+                layout={viewMode}
                 onSelect={onSelectArticle}
                 isSaved={savedArticleIds.includes(article.id)}
                 onToggleSave={onToggleSave}

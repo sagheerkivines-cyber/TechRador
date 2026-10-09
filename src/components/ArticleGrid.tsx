@@ -6,7 +6,9 @@ import {
   Filter, 
   Search, 
   Layers,
-  ArrowRight
+  ArrowRight,
+  LayoutGrid,
+  LayoutList
 } from 'lucide-react';
 import { Article, CategoryId } from '../types';
 import { CATEGORIES } from '../data/categories';
@@ -34,6 +36,23 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({
   const [activeCategory, setActiveCategory] = useState<CategoryId | 'all'>(selectedCategoryId);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchFilter, setSearchFilter] = useState<string>('');
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>(() => {
+    try {
+      const saved = localStorage.getItem('techrador_view_mode');
+      return saved === 'list' ? 'list' : 'grid';
+    } catch {
+      return 'grid';
+    }
+  });
+
+  const handleViewModeChange = (mode: 'grid' | 'list') => {
+    setViewMode(mode);
+    try {
+      localStorage.setItem('techrador_view_mode', mode);
+    } catch {
+      // ignore
+    }
+  };
 
   // Handle external category change sync
   React.useEffect(() => {
@@ -91,7 +110,7 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({
     <section id="latest-stories-section" className="py-12 bg-[#0b2721] border-b border-emerald-900/40">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-emerald-900/60 pb-5">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-emerald-900/60 pb-5">
           <div>
             <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 uppercase tracking-wider mb-1">
               <span>EXPLORE ALL RESEARCH</span>
@@ -103,27 +122,61 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({
             </h2>
           </div>
 
-          {/* Quick inline search input */}
-          <div className="relative w-full md:w-72">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-emerald-400" />
-            <input
-              type="text"
-              value={searchFilter}
-              onChange={(e) => {
-                setSearchFilter(e.target.value);
-                setCurrentPage(1);
-              }}
-              placeholder="Filter topics, authors, tags..."
-              className="w-full rounded-lg border border-emerald-900/60 bg-[#09221c] pl-9 pr-3 py-1.5 text-xs text-white placeholder-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500 transition-all"
-            />
-            {searchFilter && (
-              <button 
-                onClick={() => setSearchFilter('')}
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 hover:text-white"
+          {/* Right Toolbar: View Switcher (Grid / List) + Search */}
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-3">
+            {/* Grid & List View Toggle Buttons */}
+            <div className="flex items-center rounded-lg border border-emerald-900/70 bg-[#081d18] p-1 shadow-inner shrink-0">
+              <button
+                onClick={() => handleViewModeChange('grid')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-medium transition-all duration-200 ${
+                  viewMode === 'grid'
+                    ? 'bg-yellow-400 text-slate-950 font-bold shadow-[0_0_12px_rgba(250,204,21,0.35)]'
+                    : 'text-slate-300 hover:text-yellow-300 hover:bg-emerald-900/40'
+                }`}
+                title="Switch to Grid View (Multi-column cards)"
+                aria-label="Grid View"
               >
-                Clear
+                <LayoutGrid className="h-3.5 w-3.5" />
+                <span>Grid View</span>
               </button>
-            )}
+
+              <button
+                onClick={() => handleViewModeChange('list')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-mono font-medium transition-all duration-200 ${
+                  viewMode === 'list'
+                    ? 'bg-yellow-400 text-slate-950 font-bold shadow-[0_0_12px_rgba(250,204,21,0.35)]'
+                    : 'text-slate-300 hover:text-yellow-300 hover:bg-emerald-900/40'
+                }`}
+                title="Switch to List View (Horizontal deep layout)"
+                aria-label="List View"
+              >
+                <LayoutList className="h-3.5 w-3.5" />
+                <span>List View</span>
+              </button>
+            </div>
+
+            {/* Quick inline search input */}
+            <div className="relative w-full sm:w-60 md:w-64">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-emerald-400" />
+              <input
+                type="text"
+                value={searchFilter}
+                onChange={(e) => {
+                  setSearchFilter(e.target.value);
+                  setCurrentPage(1);
+                }}
+                placeholder="Filter topics, authors..."
+                className="w-full rounded-lg border border-emerald-900/60 bg-[#09221c] pl-9 pr-8 py-1.5 text-xs text-white placeholder-slate-400 focus:border-yellow-400 focus:outline-none focus:ring-1 focus:ring-yellow-400 transition-all"
+              />
+              {searchFilter && (
+                <button 
+                  onClick={() => setSearchFilter('')}
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] text-slate-400 hover:text-white"
+                >
+                  Clear
+                </button>
+              )}
+            </div>
           </div>
         </div>
 
@@ -162,13 +215,17 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({
           })}
         </div>
 
-        {/* Article Grid Container */}
+        {/* Article Grid / List Container */}
         {currentArticles.length > 0 ? (
-          <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className={viewMode === 'grid'
+            ? "mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+            : "mt-8 flex flex-col gap-5"
+          }>
             {currentArticles.map((article) => (
               <ArticleCard
                 key={article.id}
                 article={article}
+                layout={viewMode}
                 onSelect={onSelectArticle}
                 isSaved={savedArticleIds.includes(article.id)}
                 onToggleSave={onToggleSave}
