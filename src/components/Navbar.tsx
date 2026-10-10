@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import { CATEGORIES } from '../data/categories';
 import { CategoryId, ViewState } from '../types';
+import { TechRadorLogo } from './TechRadorLogo';
 
 interface NavbarProps {
   currentView: ViewState;
@@ -79,27 +80,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center gap-6">
           <button 
             onClick={() => { onNavigate({ type: 'home' }); setMobileMenuOpen(false); }}
-            className="group flex items-center gap-3 text-left focus:outline-none"
+            className="flex items-center text-left focus:outline-none"
+            aria-label="TechRador Home"
           >
-            {/* TechRador Silicon Logomark */}
-            <div className="relative flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-950 border border-emerald-500/30 text-emerald-400 shadow-inner group-hover:border-emerald-400/60 group-hover:text-emerald-300 transition-all">
-              <Cpu className="h-5 w-5 stroke-[2.2]" />
-              <div className="absolute -top-1 -right-1 h-2 w-2 rounded-full bg-emerald-400"></div>
-            </div>
-            
-            <div className="flex flex-col">
-              <div className="flex items-center gap-2">
-                <span className="text-xl font-bold tracking-tight text-white font-sans group-hover:text-emerald-300 transition-colors">
-                  TechRador
-                </span>
-                <span className="text-[10px] font-mono tracking-widest text-emerald-400/90 border border-emerald-500/20 px-1.5 py-0.2 rounded bg-emerald-950/40">
-                  JOURNAL
-                </span>
-              </div>
-              <span className="text-[10px] font-medium tracking-wider text-emerald-400/70 uppercase">
-                Engineering Journal · Published Daily
-              </span>
-            </div>
+            <TechRadorLogo size="md" />
           </button>
         </div>
 

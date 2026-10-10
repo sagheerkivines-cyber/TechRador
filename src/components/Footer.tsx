@@ -2,6 +2,7 @@ import React from 'react';
 import { Cpu, ArrowUpRight, ShieldCheck, Mail, BookOpen, Layers } from 'lucide-react';
 import { CATEGORIES } from '../data/categories';
 import { CategoryId, ViewState } from '../types';
+import { TechRadorLogo } from './TechRadorLogo';
 
 interface FooterProps {
   onNavigate: (view: ViewState) => void;
@@ -15,19 +16,16 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPolicies }) =>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 pb-12 border-b border-emerald-900/50">
           {/* Column 1: Brand & Editorial Mission (2 cols on large) */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-emerald-950 border border-emerald-500/30 text-emerald-400">
-                <Cpu className="h-5 w-5" />
-              </div>
-              <div>
-                <span className="text-xl font-bold tracking-tight text-white font-sans">
-                  TechRador
-                </span>
-                <span className="block text-[10px] font-mono text-emerald-400/80 uppercase tracking-widest">
-                  Engineering Journal · Published Daily
-                </span>
-              </div>
-            </div>
+            <button
+              onClick={() => {
+                onNavigate({ type: 'home' });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="text-left focus:outline-none"
+              aria-label="TechRador Home"
+            >
+              <TechRadorLogo size="md" />
+            </button>
 
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans max-w-md">
               TechRador is an independent journal of cutting-edge technology, silicon architecture, Linux kernel pipelines, and digital living. Published daily by systems researchers and hardware engineers.
