@@ -14,144 +14,173 @@ export const TechRadorLogo: React.FC<TechRadorLogoProps> = ({
   showTagline = true,
 }) => {
   const iconDimensions = {
-    sm: { box: 'h-8 w-8', svgSize: 32 },
-    md: { box: 'h-10 w-10', svgSize: 40 },
-    lg: { box: 'h-12 w-12', svgSize: 48 },
+    sm: { box: 'h-9 w-9', svgSize: 36 },
+    md: { box: 'h-11 w-11', svgSize: 44 },
+    lg: { box: 'h-14 w-14', svgSize: 56 },
   }[size];
 
   const textSizes = {
     sm: { title: 'text-lg', badge: 'text-[9px]', sub: 'text-[9px]' },
-    md: { title: 'text-xl', badge: 'text-[10px]', sub: 'text-[10px]' },
-    lg: { title: 'text-2xl', badge: 'text-[11px]', sub: 'text-[11px]' },
+    md: { title: 'text-2xl', badge: 'text-[10px]', sub: 'text-[10px]' },
+    lg: { title: 'text-3xl', badge: 'text-[11px]', sub: 'text-[11px]' },
   }[size];
 
   return (
     <div className={`flex items-center gap-3 select-none group ${className}`}>
       {/* High-Tech Vector Radar & Silicon Emblem */}
-      <div className={`relative ${iconDimensions.box} shrink-0 flex items-center justify-center rounded-xl bg-gradient-to-br from-[#0c3128] via-[#07211b] to-[#041511] border border-emerald-500/40 shadow-[0_0_15px_rgba(16,185,129,0.2)] group-hover:border-yellow-400/80 group-hover:shadow-[0_0_22px_rgba(250,204,21,0.35)] transition-all duration-300`}>
-        {/* Ambient Glow backing */}
-        <div className="absolute inset-0 rounded-xl bg-gradient-to-tr from-emerald-500/10 via-transparent to-yellow-400/15 opacity-80 group-hover:opacity-100 transition-opacity" />
+      <div
+        className={`relative ${iconDimensions.box} shrink-0 flex items-center justify-center rounded-xl bg-gradient-to-br from-[#0c3a2f] via-[#07241e] to-[#03130f] border border-emerald-400/50 shadow-[0_0_18px_rgba(16,185,129,0.25)] group-hover:border-yellow-400 group-hover:shadow-[0_0_26px_rgba(250,204,21,0.45)] transition-all duration-300 overflow-hidden`}
+      >
+        {/* Subtle dynamic ambient background glow */}
+        <div className="absolute inset-0 bg-radial from-emerald-500/15 via-transparent to-yellow-400/10 opacity-70 group-hover:opacity-100 transition-opacity" />
 
+        {/* High-precision SVG Emblem */}
         <svg
-          viewBox="0 0 48 48"
+          viewBox="0 0 52 52"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
           className="w-full h-full p-1.5 transition-transform duration-500 group-hover:scale-105"
         >
           <defs>
-            {/* Linear and radial gradients for radar and metallic look */}
-            <linearGradient id="trGradGold" x1="0%" y1="0%" x2="100%" y2="100%">
+            {/* Radiant Gold Linear Gradient */}
+            <linearGradient id="trNewGold" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#fef08a" />
-              <stop offset="50%" stopColor="#facc15" />
-              <stop offset="100%" stopColor="#ca8a04" />
+              <stop offset="45%" stopColor="#facc15" />
+              <stop offset="100%" stopColor="#eab308" />
             </linearGradient>
 
-            <linearGradient id="trGradMint" x1="0%" y1="0%" x2="100%" y2="100%">
+            {/* Neon Emerald Gradient */}
+            <linearGradient id="trNewEmerald" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#6ee7b7" />
-              <stop offset="100%" stopColor="#059669" />
+              <stop offset="50%" stopColor="#10b981" />
+              <stop offset="100%" stopColor="#047857" />
             </linearGradient>
 
-            <radialGradient id="trRadarSweep" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#facc15" stopOpacity="0.4" />
-              <stop offset="60%" stopColor="#10b981" stopOpacity="0.15" />
-              <stop offset="100%" stopColor="#0b2721" stopOpacity="0" />
+            {/* Dynamic Radar Sweep Cone */}
+            <radialGradient id="trNewRadarSweep" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#facc15" stopOpacity="0.5" />
+              <stop offset="55%" stopColor="#10b981" stopOpacity="0.25" />
+              <stop offset="100%" stopColor="#07241e" stopOpacity="0" />
             </radialGradient>
+
+            {/* Circuit Glow Filter */}
+            <filter id="trGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="1.2" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
           </defs>
 
-          {/* Outer Octagonal Precision Shield / Silicon Frame */}
-          <path
-            d="M14 6h20l8 8v20l-8 8H14l-8-8V14l8-8z"
+          {/* Hexagonal Outer Cyber Frame */}
+          <polygon
+            points="26,3 47,15 47,37 26,49 5,37 5,15"
             stroke="#10b981"
             strokeWidth="1.2"
-            strokeOpacity="0.5"
-            strokeDasharray="3 2"
+            strokeOpacity="0.6"
+            fill="none"
+            strokeDasharray="4 2"
           />
 
-          {/* Concentric Radar Sonar Range Rings */}
-          <circle cx="24" cy="24" r="16" stroke="#059669" strokeWidth="0.8" strokeOpacity="0.4" />
-          <circle cx="24" cy="24" r="11" stroke="#34d399" strokeWidth="0.8" strokeOpacity="0.3" strokeDasharray="1.5 1.5" />
+          {/* Concentric Radar Sonar Acoustic Rings */}
+          <circle cx="26" cy="26" r="18" stroke="#059669" strokeWidth="0.8" strokeOpacity="0.35" />
+          <circle cx="26" cy="26" r="12" stroke="#34d399" strokeWidth="0.8" strokeOpacity="0.3" strokeDasharray="2 2" />
+          <circle cx="26" cy="26" r="6" stroke="#facc15" strokeWidth="0.8" strokeOpacity="0.4" />
 
-          {/* 45° Radar Scanning Beam Cone */}
+          {/* 60-degree Radar Scanning Sweep Fan */}
           <path
-            d="M24 24 L36 12 A17 17 0 0 1 39 24 Z"
-            fill="url(#trRadarSweep)"
+            d="M26 26 L42 16.7 A18 18 0 0 1 44 26 Z"
+            fill="url(#trNewRadarSweep)"
             className="animate-pulse"
           />
 
-          {/* Precision Crosshair Grid */}
-          <line x1="24" y1="8" x2="24" y2="40" stroke="#34d399" strokeWidth="0.8" strokeOpacity="0.25" />
-          <line x1="8" y1="24" x2="40" y2="24" stroke="#34d399" strokeWidth="0.8" strokeOpacity="0.25" />
+          {/* Precision Scope Crosshair Reticle */}
+          <line x1="26" y1="8" x2="26" y2="44" stroke="#34d399" strokeWidth="0.7" strokeOpacity="0.3" />
+          <line x1="8" y1="26" x2="44" y2="26" stroke="#34d399" strokeWidth="0.7" strokeOpacity="0.3" />
 
-          {/* Iconic "T" and "R" Silicon Monogram Core */}
-          {/* Top 'T' Bar with circuit termination nodes */}
+          {/* Iconic Stylized "T" + "R" Monogram Core (Custom Architectural Geometry) */}
+          {/* Top T-Arm with Circuit Nodes */}
           <path
-            d="M13 16h22"
-            stroke="url(#trGradMint)"
-            strokeWidth="2.4"
+            d="M14 16.5H38"
+            stroke="url(#trNewEmerald)"
+            strokeWidth="2.8"
             strokeLinecap="round"
-          />
-          {/* Central Stem */}
-          <path
-            d="M24 16v18"
-            stroke="url(#trGradMint)"
-            strokeWidth="2.2"
-            strokeLinecap="round"
+            filter="url(#trGlow)"
           />
 
-          {/* Dynamic Radar 'R' loop & diagonal energy kick in glowing gold */}
+          {/* Vertical Central T-Stem */}
           <path
-            d="M24 16h7.5c3.2 0 4.8 2.2 4.8 4.8 0 2.5-1.6 4.5-4.5 4.7H24"
-            stroke="url(#trGradGold)"
-            strokeWidth="2.2"
+            d="M26 16.5V37"
+            stroke="url(#trNewEmerald)"
+            strokeWidth="2.6"
+            strokeLinecap="round"
+          />
+
+          {/* High-Velocity Radar 'R' Aerodynamic Upper Loop in Gold */}
+          <path
+            d="M26 16.5H33.5C37.5 16.5 39.5 19 39.5 22C39.5 25 37 27.5 33 27.5H26"
+            stroke="url(#trNewGold)"
+            strokeWidth="2.6"
             strokeLinecap="round"
             strokeLinejoin="round"
           />
+
+          {/* Dynamic Laser Diagonal R-Leg kicking forward */}
           <path
-            d="M29 25.5l7 10.5"
-            stroke="url(#trGradGold)"
-            strokeWidth="2.4"
+            d="M31.5 27.5L39.5 37"
+            stroke="url(#trNewGold)"
+            strokeWidth="2.8"
             strokeLinecap="round"
+            filter="url(#trGlow)"
           />
 
-          {/* Pulsing Core Silicon Radar Beacon Diode */}
-          <circle cx="24" cy="16" r="2.2" fill="#facc15" className="animate-ping opacity-75" />
-          <circle cx="24" cy="16" r="1.6" fill="#fef08a" />
+          {/* Central Quantum Radar Core Emitter (Glowing Pulse) */}
+          <circle cx="26" cy="16.5" r="2.4" fill="#facc15" className="animate-ping opacity-80" />
+          <circle cx="26" cy="16.5" r="1.8" fill="#fef08a" />
 
-          {/* Satellite Data Node Pins */}
-          <circle cx="13" cy="16" r="1.3" fill="#6ee7b7" />
-          <circle cx="36" cy="36" r="1.3" fill="#facc15" />
+          {/* Peripheral Micro-Sensor Nodes */}
+          <circle cx="14" cy="16.5" r="1.5" fill="#6ee7b7" />
+          <circle cx="39.5" cy="37" r="1.5" fill="#facc15" />
+          <circle cx="26" cy="37" r="1.3" fill="#34d399" />
         </svg>
 
-        {/* Live Top-Right Signal Dot */}
-        <div className="absolute -top-1 -right-1 flex h-2.5 w-2.5 items-center justify-center">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75" />
-          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-yellow-400 shadow-[0_0_6px_#facc15]" />
+        {/* Live Status Beacon Indicator in Top-Right Corner */}
+        <div className="absolute top-1 right-1 flex h-2.5 w-2.5 items-center justify-center">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-80" />
+          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-yellow-400 shadow-[0_0_8px_#facc15]" />
         </div>
       </div>
 
-      {/* Typography & Brand Wordmark */}
+      {/* Brand Typography & Wordmark */}
       {variant !== 'compact' && (
         <div className="flex flex-col">
           <div className="flex items-center gap-1.5 leading-none">
-            {/* Split Dual-Tone Wordmark: Tech (White) + Rador (Yellow) */}
-            <span className={`${textSizes.title} font-extrabold tracking-tight text-white font-sans group-hover:text-emerald-100 transition-colors`}>
-              Tech<span className="text-yellow-400 group-hover:text-yellow-300 group-hover:drop-shadow-[0_0_12px_rgba(250,204,21,0.5)] transition-all">Rador</span>
+            {/* Bold Wordmark: Tech (Crisp White) + Rador (Radiant Gold-Yellow) */}
+            <span className={`${textSizes.title} font-extrabold tracking-tight text-white font-sans group-hover:text-emerald-100 transition-colors flex items-center`}>
+              Tech
+              <span className="text-yellow-400 group-hover:text-yellow-300 group-hover:drop-shadow-[0_0_14px_rgba(250,204,21,0.6)] transition-all ml-0.5">
+                Rador
+              </span>
             </span>
 
-            {/* High-Tech Journal pill tag */}
-            <span className={`${textSizes.badge} font-mono font-bold tracking-widest text-yellow-300 border border-yellow-400/40 px-1.5 py-0.5 rounded-md bg-yellow-400/10 shadow-sm ml-0.5`}>
-              JOURNAL
-            </span>
+            {/* High-Tech JOURNAL / LIVE Badge */}
+            <div className="flex items-center gap-1 ml-1">
+              <span className={`${textSizes.badge} font-mono font-bold tracking-widest text-yellow-300 border border-yellow-400/50 px-1.5 py-0.5 rounded-md bg-yellow-400/15 shadow-[0_0_10px_rgba(250,204,21,0.2)]`}>
+                JOURNAL
+              </span>
+              <span className="hidden sm:inline-flex items-center gap-1 text-[8px] font-mono text-emerald-300 bg-emerald-950/80 border border-emerald-500/40 px-1.5 py-0.5 rounded-md">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                LIVE
+              </span>
+            </div>
           </div>
 
           {showTagline && (
             <div className="flex items-center gap-1.5 mt-1">
-              <span className={`${textSizes.sub} font-mono font-medium tracking-wider text-emerald-400/90 uppercase`}>
+              <span className={`${textSizes.sub} font-mono font-medium tracking-wider text-emerald-400/95 uppercase`}>
                 Engineering Journal
               </span>
-              <span className="text-emerald-600 text-[9px]">·</span>
-              <span className={`${textSizes.sub} font-mono font-bold tracking-wider text-yellow-400/90 uppercase`}>
-                Daily Silicon Dispatches
+              <span className="text-emerald-600 text-[10px]">·</span>
+              <span className={`${textSizes.sub} font-mono font-bold tracking-wider text-yellow-400/95 uppercase`}>
+                Silicon Architecture
               </span>
             </div>
           )}

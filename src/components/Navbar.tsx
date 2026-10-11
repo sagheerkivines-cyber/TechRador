@@ -26,6 +26,7 @@ interface NavbarProps {
   onOpenSearch: () => void;
   onOpenBookmarks: () => void;
   onOpenPolicies: () => void;
+  onOpenAdSense?: () => void;
   viewMode?: 'grid' | 'list';
   onToggleViewMode?: (mode: 'grid' | 'list') => void;
 }
@@ -37,6 +38,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenSearch,
   onOpenBookmarks,
   onOpenPolicies,
+  onOpenAdSense,
   viewMode,
   onToggleViewMode,
 }) => {
@@ -62,6 +64,18 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="text-emerald-300">PEER-REVIEWED SYSTEMS RESEARCH</span>
           </div>
           <div className="flex items-center gap-4 text-emerald-400/70">
+            {onOpenAdSense && (
+              <>
+                <button 
+                  onClick={onOpenAdSense} 
+                  className="text-yellow-400 hover:text-yellow-300 font-mono font-semibold flex items-center gap-1.5 transition-colors"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-yellow-400 animate-pulse" />
+                  <span>AdSense & ads.txt Setup</span>
+                </button>
+                <span>·</span>
+              </>
+            )}
             <button 
               onClick={onOpenPolicies} 
               className="hover:text-emerald-200 transition-colors"
@@ -368,6 +382,16 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               Editorial Policies & Standards
             </button>
+
+            {onOpenAdSense && (
+              <button
+                onClick={() => { onOpenAdSense(); setMobileMenuOpen(false); }}
+                className="w-full text-left px-3 py-2 text-sm font-bold text-yellow-400 bg-yellow-400/10 border border-yellow-400/30 rounded-lg flex items-center gap-2 mt-2"
+              >
+                <span className="h-2 w-2 rounded-full bg-yellow-400 animate-pulse" />
+                <span>Google AdSense & ads.txt Setup Tool</span>
+              </button>
+            )}
           </div>
         </div>
       )}

@@ -18,6 +18,7 @@ import { ContactPage } from './components/ContactPage';
 import { SearchModal } from './components/SearchModal';
 import { BookmarksDrawer } from './components/BookmarksDrawer';
 import { EditorialPoliciesModal } from './components/EditorialPoliciesModal';
+import { AdSenseSetupModal } from './components/AdSenseSetupModal';
 import { Footer } from './components/Footer';
 import { CustomCursor } from './components/CustomCursor';
 import { HomeFeedControlsBar } from './components/HomeFeedControlsBar';
@@ -58,6 +59,7 @@ export default function App() {
   const [bookmarksDrawerOpen, setBookmarksDrawerOpen] = useState(false);
   const [policiesModalOpen, setPoliciesModalOpen] = useState(false);
   const [policiesDefaultTab, setPoliciesDefaultTab] = useState<'standards' | 'peer-review' | 'privacy' | 'terms'>('standards');
+  const [adsenseModalOpen, setAdsenseModalOpen] = useState(false);
 
   // Save bookmarks to localStorage
   useEffect(() => {
@@ -131,6 +133,7 @@ export default function App() {
         onOpenSearch={() => setSearchModalOpen(true)}
         onOpenBookmarks={() => setBookmarksDrawerOpen(true)}
         onOpenPolicies={() => handleOpenPolicies('standards')}
+        onOpenAdSense={() => setAdsenseModalOpen(true)}
         viewMode={feedViewMode}
         onToggleViewMode={handleFeedViewModeChange}
       />
@@ -235,6 +238,7 @@ export default function App() {
       <Footer
         onNavigate={handleNavigate}
         onOpenPolicies={handleOpenPolicies}
+        onOpenAdSense={() => setAdsenseModalOpen(true)}
       />
 
       {/* Interactive Overlays */}
@@ -257,6 +261,11 @@ export default function App() {
         isOpen={policiesModalOpen}
         onClose={() => setPoliciesModalOpen(false)}
         defaultTab={policiesDefaultTab}
+      />
+
+      <AdSenseSetupModal
+        isOpen={adsenseModalOpen}
+        onClose={() => setAdsenseModalOpen(false)}
       />
     </div>
   );

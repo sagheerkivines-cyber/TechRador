@@ -7,9 +7,10 @@ import { TechRadorLogo } from './TechRadorLogo';
 interface FooterProps {
   onNavigate: (view: ViewState) => void;
   onOpenPolicies: (tab?: 'standards' | 'peer-review' | 'privacy' | 'terms') => void;
+  onOpenAdSense?: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPolicies }) => {
+export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPolicies, onOpenAdSense }) => {
   return (
     <footer className="border-t border-emerald-900/60 bg-[#061713] text-[#e2e8f0] pt-14 pb-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
@@ -144,6 +145,17 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPolicies }) =>
                   Pitch a Technical Paper
                 </button>
               </li>
+              {onOpenAdSense && (
+                <li>
+                  <button
+                    onClick={onOpenAdSense}
+                    className="text-yellow-400 hover:text-yellow-300 font-semibold transition-colors flex items-center gap-1.5 group"
+                  >
+                    <span className="h-2 w-2 rounded-full bg-yellow-400 animate-pulse" />
+                    <span>Google AdSense & ads.txt Setup</span>
+                  </button>
+                </li>
+              )}
               <li>
                 <button
                   onClick={() => { onNavigate({ type: 'editors' }); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
