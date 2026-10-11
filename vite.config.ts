@@ -1,11 +1,32 @@
 import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import fs from 'fs';
 import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    plugins: [react(), tailwindcss()],
+    plugins: [
+      react(), 
+      tailwindcss(),
+      {
+        name: 'serve-ads-txt',
+        configureServer(server) {
+          server.middlewares.use((req, res, next) => {
+            if (req.url === '/ads.txt' || req.url?.startsWith('/ads.txt?')) {
+              const filePath = path.resolve(__dirname, 'public/ads.txt');
+              if (fs.existsSync(filePath)) {
+                res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                res.setHeader('Cache-Control', 'public, max-age=3600');
+                return res.end(fs.readFileSync(filePath, 'utf-8'));
+              }
+            }
+            next();
+          });
+        },
+      },
+    ],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),
