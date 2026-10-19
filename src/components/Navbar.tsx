@@ -11,9 +11,6 @@ import {
   Mail, 
   Info,
   ExternalLink,
-  SlidersHorizontal,
-  LayoutGrid,
-  LayoutList
 } from 'lucide-react';
 import { CATEGORIES } from '../data/categories';
 import { CategoryId, ViewState } from '../types';
@@ -27,8 +24,6 @@ interface NavbarProps {
   onOpenBookmarks: () => void;
   onOpenPolicies: () => void;
   onOpenAdSense?: () => void;
-  viewMode?: 'grid' | 'list';
-  onToggleViewMode?: (mode: 'grid' | 'list') => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -39,8 +34,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenBookmarks,
   onOpenPolicies,
   onOpenAdSense,
-  viewMode,
-  onToggleViewMode,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [categoryDropdownOpen, setCategoryDropdownOpen] = useState(false);
@@ -203,39 +196,6 @@ export const Navbar: React.FC<NavbarProps> = ({
 
         {/* Right: Search, Bookmarks, and Action Controls */}
         <div className="flex items-center gap-2 sm:gap-2.5">
-          {/* Quick View Mode Switcher (When on Home) */}
-          {isHome && onToggleViewMode && viewMode && (
-            <div className="hidden sm:flex items-center rounded-lg border border-emerald-800/80 bg-[#061713] p-0.5 shadow-inner">
-              <button
-                onClick={() => onToggleViewMode('grid')}
-                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium transition-all duration-200 ${
-                  viewMode === 'grid'
-                    ? 'bg-yellow-400 text-slate-950 font-bold shadow-sm'
-                    : 'text-slate-300 hover:text-yellow-300 hover:bg-emerald-900/40'
-                }`}
-                title="Grid View (3 Columns)"
-                aria-label="Grid View"
-              >
-                <LayoutGrid className="h-3 w-3" />
-                <span>Grid</span>
-              </button>
-
-              <button
-                onClick={() => onToggleViewMode('list')}
-                className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-mono font-medium transition-all duration-200 ${
-                  viewMode === 'list'
-                    ? 'bg-yellow-400 text-slate-950 font-bold shadow-sm'
-                    : 'text-slate-300 hover:text-yellow-300 hover:bg-emerald-900/40'
-                }`}
-                title="List View (Full Paper Details)"
-                aria-label="List View"
-              >
-                <LayoutList className="h-3 w-3" />
-                <span>List</span>
-              </button>
-            </div>
-          )}
-
           {/* Quick Search Button */}
           <button
             onClick={onOpenSearch}
@@ -287,45 +247,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               Home Feed
             </button>
-
-            {/* Mobile View Mode Switcher */}
-            {isHome && onToggleViewMode && viewMode && (
-              <div className="p-2.5 my-2 rounded-xl bg-[#061713] border border-emerald-900/60">
-                <span className="text-[10px] font-mono text-yellow-400 font-bold uppercase block mb-1.5">
-                  Feed View Option:
-                </span>
-                <div className="grid grid-cols-2 gap-2">
-                  <button
-                    onClick={() => {
-                      onToggleViewMode('grid');
-                      setMobileMenuOpen(false);
-                    }}
-                    className={`flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-mono font-bold transition-all ${
-                      viewMode === 'grid'
-                        ? 'bg-yellow-400 text-slate-950 shadow-md'
-                        : 'bg-emerald-950/60 text-slate-300 border border-emerald-900'
-                    }`}
-                  >
-                    <LayoutGrid className="h-3.5 w-3.5" />
-                    <span>Grid View</span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      onToggleViewMode('list');
-                      setMobileMenuOpen(false);
-                    }}
-                    className={`flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-lg text-xs font-mono font-bold transition-all ${
-                      viewMode === 'list'
-                        ? 'bg-yellow-400 text-slate-950 shadow-md'
-                        : 'bg-emerald-950/60 text-slate-300 border border-emerald-900'
-                    }`}
-                  >
-                    <LayoutList className="h-3.5 w-3.5" />
-                    <span>List View</span>
-                  </button>
-                </div>
-              </div>
-            )}
 
             <div className="pt-2 pb-1 px-3 text-[11px] font-mono font-semibold text-emerald-400/60 uppercase">
               5 Tech Categories

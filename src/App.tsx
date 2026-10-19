@@ -134,8 +134,6 @@ export default function App() {
         onOpenBookmarks={() => setBookmarksDrawerOpen(true)}
         onOpenPolicies={() => handleOpenPolicies('standards')}
         onOpenAdSense={() => setAdsenseModalOpen(true)}
-        viewMode={feedViewMode}
-        onToggleViewMode={handleFeedViewModeChange}
       />
 
       {/* Main View Router */}
