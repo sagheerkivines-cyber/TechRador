@@ -14,12 +14,14 @@ export default defineConfig(() => {
         configureServer(server) {
           server.middlewares.use((req, res, next) => {
             if (req.url === '/ads.txt' || req.url?.startsWith('/ads.txt?')) {
-              const filePath = path.resolve(__dirname, 'public/ads.txt');
-              if (fs.existsSync(filePath)) {
+              const publicPath = path.resolve(__dirname, 'public/ads.txt');
+              const rootPath = path.resolve(__dirname, 'ads.txt');
+              const target = fs.existsSync(publicPath) ? publicPath : (fs.existsSync(rootPath) ? rootPath : null);
+              if (target) {
                 res.setHeader('Content-Type', 'text/plain; charset=utf-8');
                 res.setHeader('Access-Control-Allow-Origin', '*');
                 res.setHeader('Cache-Control', 'public, max-age=3600');
-                return res.end(fs.readFileSync(filePath, 'utf-8'));
+                return res.end(fs.readFileSync(target, 'utf-8'));
               }
             }
             next();
