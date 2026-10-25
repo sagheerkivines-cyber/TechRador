@@ -1,0 +1,13 @@
+# ==============================================================================
+# TechRador Robots.txt (Crawler Directive)
+# Official specification: https://developers.google.com/search/docs/crawling-indexing/robots/intro
+# ==============================================================================
+
+User-agent: *
+Allow: /
+
+# Disallow internal API endpoints if any
+Disallow: /api/
+
+# Canonical XML Sitemap
+Sitemap: https://techrador.com/sitemap.xml

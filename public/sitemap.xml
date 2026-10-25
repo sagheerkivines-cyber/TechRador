@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+                            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd
+                            http://www.google.com/schemas/sitemap-image/1.1
+                            http://www.google.com/schemas/sitemap-image/1.1/sitemap-image.xsd">
+  <!-- ========================================== -->
+  <!-- 1. ROOT & CORE HUB PAGES                   -->
+  <!-- ========================================== -->
+  <url>
+    <loc>https://techrador.com/</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <!-- ========================================== -->
+  <!-- 2. CATEGORY TAXONOMY HUBS                  -->
+  <!-- ========================================== -->
+  <url>
+    <loc>https://techrador.com/category/ai-ml</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://techrador.com/category/cloud-devops</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://techrador.com/category/cybersecurity</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://techrador.com/category/hardware-silicon</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://techrador.com/category/software-engineering</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <!-- ========================================== -->
+  <!-- 3. RESEARCH ARTICLES & ENGINEERING GUIDES   -->
+  <!-- ========================================== -->
+  <url>
+    <loc>https://techrador.com/article/machine-learning-architecture-enterprise-guide</loc>
+    <lastmod>2026-10-21</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>Machine Learning Architecture: The Definitive Enterprise Guide to Algorithms, Distributed Pipelines, and Production Deployment</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/speculative-decoding-kv-cache-optimization</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>Distributed KV-Cache Tiering and Speculative Decoding in 70B+ LLM Inference Pipelines</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/mixture-of-depths-dynamic-compute-routing</loc>
+    <lastmod>2026-10-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>Dynamic Compute Routing: Implementing Mixture-of-Depths (MoD) in Dense Transformer Architectures</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/neuromorphic-spiking-silicon-edge-benchmark</loc>
+    <lastmod>2026-10-01</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>Event-Driven Synaptic Silicon: Benchmarking Second-Generation Neuromorphic Chips Against GPUs</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/flashattention-3-fp4-quantization-warp-specialization</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>Asynchronous Warp Specialization: Porting FlashAttention-3 to Ultra-Low Bitwidth FP4 Tensors</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/cloud-computing-devops-architecture-guide</loc>
+    <lastmod>2026-10-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>Cloud Computing Architecture: The Complete Enterprise DevOps, Kubernetes, and Multi-Cloud Guide</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/linux-ebpf-schedulers-kernel-612</loc>
+    <lastmod>2026-10-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>Zero-Overhead Distributed Tracing: Building Production eBPF Schedulers on Linux 6.12</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/cxl-30-disaggregated-memory-architecture</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1597733336794-12d05021d510?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>CXL 3.0 Disaggregated Memory Architecture: Sub-Microsecond Multi-Host Fabric Benchmarks</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/multi-region-consensus-pipelined-raft</loc>
+    <lastmod>2026-09-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1544890225-2f3faec4cd60?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>Deterministic Replay &amp; Pipelined Raft: Eliminating Tail Latency Across Transcontinental Cloud Zones</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/wasm-edge-sandboxing-micro-vmm</loc>
+    <lastmod>2026-09-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>Cold-Start Elimination: Compiling Micro-VMM Workloads to WebAssembly System Interface (WASI 0.2)</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/post-quantum-cryptography-ml-kem-tls-migration</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>Migrating TLS 1.3 to ML-KEM-768: Hardware Acceleration and Latency Mitigation in Quantum-Safe Networks</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/confidential-computing-amd-sev-snp-intel-tdx</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1563089145-599997674d42?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>Hardened Enclaves: Attestation Verification and Memory Encryption with AMD SEV-SNP and Intel TDX</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/recursive-zksnark-pipelines-state-validation</loc>
+    <lastmod>2026-09-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1639762681485-074b7f938ba0?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>Recursive Proof Generation at Scale: Hardware-Accelerated Plonky2 Systems for State Validation</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/kernel-rust-drivers-formal-invariants</loc>
+    <lastmod>2026-09-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>Kernel Rust Drivers in Mission-Critical Systems: Formally Proving Concurrency Invariants</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/semiconductor-physics-fabrication-architecture-guide</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>Semiconductor Architecture: The Definitive Guide to Solid-State Physics, GAAFET Nanosheets, and Advanced Packaging</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/wafer-scale-packaging-cowos-35d</loc>
+    <lastmod>2026-10-09</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>Breaking the Reticle Barrier: TSMC CoWoS-L and 3.5D Packaging Innovations in Next-Gen Compute</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/riscv-vector-extensions-rvv-silicon-pipelines</loc>
+    <lastmod>2026-10-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1555680202-c86f0e12f086?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>High-Throughput SIMD Acceleration: Implementing RVV 1.0 Vector Pipelines on Custom Silicon</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/silicon-photonics-co-packaged-optics-cpo</loc>
+    <lastmod>2026-09-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1544890225-2f3faec4cd60?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>Co-Packaged Optics (CPO): Replacing Copper Traces with Monolithic Silicon Photonic Links in Terabit Switches</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/hbm4-16-hi-stack-thermal-routing-2048bit</loc>
+    <lastmod>2026-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>HBM4 16-Hi Stack Thermal Dissipation and 2048-Bit Base Die Logic Customization</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/rust-async-runtime-work-stealing-scheduler</loc>
+    <lastmod>2026-10-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>Work-Stealing Scheduler Internals: Designing Lock-Free Ring Buffers for Million-QPS IO Runtimes</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/lock-free-hazard-pointers-epoch-reclamation</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>Hazard Pointers vs Epoch-Based Reclamation: Scalable Concurrency in Multi-Core Storage Engines</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/formal-verification-tla-consensus-deadlocks</loc>
+    <lastmod>2026-09-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>Exposing Distributed Deadlocks: Formal Specification and Model Checking of Consensus Protocols in TLA+</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://techrador.com/article/deterministic-simulation-testing-foundationdb</loc>
+    <lastmod>2026-09-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <image:image>
+      <image:loc>https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&amp;fit=crop&amp;w=1600&amp;q=80</image:loc>
+      <image:title>FoundationDB-Style Chaos: Building Deterministic Time-Travel Simulation Testbeds in Modern C++</image:title>
+    </image:image>
+  </url>
+  <!-- ========================================== -->
+  <!-- 4. EDITORIAL, LEGAL & CONTACT POLICIES     -->
+  <!-- ========================================== -->
+  <url>
+    <loc>https://techrador.com/about</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://techrador.com/editors</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://techrador.com/contact</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://techrador.com/editorial-standards</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://techrador.com/peer-review-process</loc>
+    <lastmod>2026-10-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://techrador.com/privacy-policy</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://techrador.com/terms-of-service</loc>
+    <lastmod>2026-10-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+</urlset>

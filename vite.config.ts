@@ -10,7 +10,7 @@ export default defineConfig(() => {
       react(), 
       tailwindcss(),
       {
-        name: 'serve-ads-txt',
+        name: 'serve-seo-files',
         configureServer(server) {
           server.middlewares.use((req, res, next) => {
             if (req.url === '/ads.txt' || req.url?.startsWith('/ads.txt?')) {
@@ -24,6 +24,27 @@ export default defineConfig(() => {
                 return res.end(fs.readFileSync(target, 'utf-8'));
               }
             }
+
+            if (req.url === '/sitemap.xml' || req.url?.startsWith('/sitemap.xml?')) {
+              const sitemapPath = path.resolve(__dirname, 'public/sitemap.xml');
+              if (fs.existsSync(sitemapPath)) {
+                res.setHeader('Content-Type', 'application/xml; charset=utf-8');
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                res.setHeader('Cache-Control', 'public, max-age=3600');
+                return res.end(fs.readFileSync(sitemapPath, 'utf-8'));
+              }
+            }
+
+            if (req.url === '/robots.txt' || req.url?.startsWith('/robots.txt?')) {
+              const robotsPath = path.resolve(__dirname, 'public/robots.txt');
+              if (fs.existsSync(robotsPath)) {
+                res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                res.setHeader('Cache-Control', 'public, max-age=3600');
+                return res.end(fs.readFileSync(robotsPath, 'utf-8'));
+              }
+            }
+
             next();
           });
         },
