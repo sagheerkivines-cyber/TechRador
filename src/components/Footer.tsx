@@ -67,49 +67,64 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPolicies, onOp
           </div>
 
           {/* Column 3: Editorial Policies & Governance */}
+          {/* Column 3: 5 Essential Pages & Editorial Policies */}
           <div>
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-300 mb-3">
-              Editorial Policies
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-yellow-400 mb-3 flex items-center gap-1.5">
+              <ShieldCheck className="h-3.5 w-3.5 text-yellow-400" />
+              <span>Editorial Policies & Legal Pages</span>
             </h3>
             <ul className="space-y-2 text-xs">
               <li>
                 <button
-                  onClick={() => onOpenPolicies('standards')}
-                  className="text-slate-300 hover:text-emerald-300 transition-colors"
+                  onClick={() => { onNavigate({ type: 'privacy' }); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="text-slate-300 hover:text-yellow-300 transition-colors flex items-center justify-between w-full group text-left"
                 >
-                  Editorial Standards & Ethics
+                  <span className="font-semibold text-white group-hover:text-yellow-300">1. Privacy Policy</span>
+                  <span className="text-[10px] font-mono text-emerald-400">GDPR/CCPA</span>
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onOpenPolicies('peer-review')}
-                  className="text-slate-300 hover:text-emerald-300 transition-colors"
+                  onClick={() => { onNavigate({ type: 'terms' }); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="text-slate-300 hover:text-yellow-300 transition-colors flex items-center justify-between w-full group text-left"
                 >
-                  Peer-Review Protocol
+                  <span className="font-semibold text-white group-hover:text-yellow-300">2. Terms & Conditions</span>
+                  <span className="text-[10px] font-mono text-emerald-400">2026</span>
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onOpenPolicies('peer-review')}
-                  className="text-slate-300 hover:text-emerald-300 transition-colors"
+                  onClick={() => { onNavigate({ type: 'about' }); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="text-slate-300 hover:text-yellow-300 transition-colors flex items-center justify-between w-full group text-left"
                 >
-                  Retraction & Correction Policy
+                  <span className="font-semibold text-white group-hover:text-yellow-300">3. About Us</span>
+                  <span className="text-[10px] font-mono text-emerald-400">Lab & Journal</span>
                 </button>
               </li>
               <li>
+                <button
+                  onClick={() => { onNavigate({ type: 'contact' }); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="text-slate-300 hover:text-yellow-300 transition-colors flex items-center justify-between w-full group text-left"
+                >
+                  <span className="font-semibold text-white group-hover:text-yellow-300">4. Contact Us</span>
+                  <span className="text-[10px] font-mono text-yellow-400">Direct Desk</span>
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => { onNavigate({ type: 'disclaimer' }); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                  className="text-slate-300 hover:text-yellow-300 transition-colors flex items-center justify-between w-full group text-left"
+                >
+                  <span className="font-semibold text-white group-hover:text-yellow-300">5. Editorial Policies & Disclaimer</span>
+                  <span className="text-[10px] font-mono text-emerald-400">Ethics</span>
+                </button>
+              </li>
+              <li className="pt-1.5 border-t border-emerald-900/60">
                 <button
                   onClick={() => onOpenPolicies('privacy')}
-                  className="text-slate-300 hover:text-emerald-300 transition-colors"
+                  className="text-[11px] font-mono text-emerald-400 hover:text-emerald-300 hover:underline flex items-center gap-1"
                 >
-                  Privacy Policy (Zero Telemetry)
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onOpenPolicies('terms')}
-                  className="text-slate-300 hover:text-emerald-300 transition-colors"
-                >
-                  Terms & Conditions (2026)
+                  <span>⊞ Open Quick Compliance Desk (5 Tabs)</span>
                 </button>
               </li>
             </ul>

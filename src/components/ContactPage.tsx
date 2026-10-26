@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
-import { Mail, Send, CheckCircle2, Shield, MapPin, Key, MessageSquare, AlertCircle } from 'lucide-react';
+import { Mail, Send, CheckCircle2, Shield, MapPin, Key, MessageSquare, AlertCircle, ArrowLeft } from 'lucide-react';
 import { CATEGORIES } from '../data/categories';
+import { ViewState } from '../types';
 
-export const ContactPage: React.FC = () => {
+interface ContactPageProps {
+  onNavigate?: (view: ViewState) => void;
+}
+
+export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -31,6 +36,22 @@ export const ContactPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#081d18] text-[#e2e8f0] py-12 sm:py-16">
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
+        {/* Back Button */}
+        {onNavigate && (
+          <div className="mb-6 flex items-center justify-between">
+            <button
+              onClick={() => onNavigate({ type: 'home' })}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-900/60 bg-emerald-950/60 px-3 py-1.5 text-xs font-medium text-slate-300 hover:border-yellow-400 hover:text-yellow-300 transition-colors"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" />
+              <span>Back to Home</span>
+            </button>
+            <div className="text-xs font-mono text-emerald-400/80">
+              Direct Desk: 03069256639 · Santa Clara, CA
+            </div>
+          </div>
+        )}
+
         {/* Header */}
         <div className="border-b border-emerald-900/60 pb-8 text-center sm:text-left">
           <div className="flex items-center justify-center sm:justify-start gap-2 text-xs font-mono text-emerald-400 uppercase tracking-widest mb-3">

@@ -11,6 +11,7 @@ import {
   Mail, 
   Info,
   ExternalLink,
+  ShieldCheck,
 } from 'lucide-react';
 import { CATEGORIES } from '../data/categories';
 import { CategoryId, ViewState } from '../types';
@@ -192,6 +193,15 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             Contact
           </button>
+
+          <button
+            onClick={onOpenPolicies}
+            className="px-3 py-1.5 text-sm font-medium transition-all rounded-md text-emerald-300 hover:text-yellow-300 hover:bg-emerald-950/40 flex items-center gap-1.5"
+            title="Essential Editorial & Legal Policies"
+          >
+            <ShieldCheck className="h-4 w-4 text-emerald-400" />
+            <span>Editorial Policies</span>
+          </button>
         </nav>
 
         {/* Right: Search, Bookmarks, and Action Controls */}
@@ -297,11 +307,56 @@ export const Navbar: React.FC<NavbarProps> = ({
               Contact & Submissions
             </button>
 
+            <div className="pt-2 pb-1 px-3 text-[11px] font-mono font-semibold text-yellow-400 uppercase">
+              5 Essential Legal & Editorial Pages
+            </div>
+
+            <button
+              onClick={() => { onNavigate({ type: 'privacy' }); setMobileMenuOpen(false); }}
+              className="w-full text-left pl-6 pr-3 py-1.5 text-xs text-slate-300 hover:text-yellow-300 hover:bg-emerald-900/20 rounded-lg flex items-center justify-between"
+            >
+              <span>1. Privacy Policy</span>
+              <span className="text-[10px] font-mono text-emerald-400">GDPR/CCPA</span>
+            </button>
+
+            <button
+              onClick={() => { onNavigate({ type: 'terms' }); setMobileMenuOpen(false); }}
+              className="w-full text-left pl-6 pr-3 py-1.5 text-xs text-slate-300 hover:text-yellow-300 hover:bg-emerald-900/20 rounded-lg flex items-center justify-between"
+            >
+              <span>2. Terms & Conditions</span>
+              <span className="text-[10px] font-mono text-emerald-400">2026</span>
+            </button>
+
+            <button
+              onClick={() => { onNavigate({ type: 'about' }); setMobileMenuOpen(false); }}
+              className="w-full text-left pl-6 pr-3 py-1.5 text-xs text-slate-300 hover:text-yellow-300 hover:bg-emerald-900/20 rounded-lg flex items-center justify-between"
+            >
+              <span>3. About Us</span>
+              <span className="text-[10px] font-mono text-emerald-400">Journal & Lab</span>
+            </button>
+
+            <button
+              onClick={() => { onNavigate({ type: 'contact' }); setMobileMenuOpen(false); }}
+              className="w-full text-left pl-6 pr-3 py-1.5 text-xs text-slate-300 hover:text-yellow-300 hover:bg-emerald-900/20 rounded-lg flex items-center justify-between"
+            >
+              <span>4. Contact Us</span>
+              <span className="text-[10px] font-mono text-yellow-400">Direct Desk</span>
+            </button>
+
+            <button
+              onClick={() => { onNavigate({ type: 'disclaimer' }); setMobileMenuOpen(false); }}
+              className="w-full text-left pl-6 pr-3 py-1.5 text-xs text-slate-300 hover:text-yellow-300 hover:bg-emerald-900/20 rounded-lg flex items-center justify-between"
+            >
+              <span>5. Editorial Policies & Disclaimer</span>
+              <span className="text-[10px] font-mono text-emerald-400">Charter</span>
+            </button>
+
             <button
               onClick={() => { onOpenPolicies(); setMobileMenuOpen(false); }}
-              className="w-full text-left px-3 py-2 text-sm font-medium text-emerald-400/80 hover:text-emerald-300"
+              className="w-full text-left px-3 py-2 text-xs font-mono text-emerald-300 hover:text-yellow-300 bg-emerald-950/60 rounded-lg border border-emerald-900/60 mt-2 flex items-center gap-1.5"
             >
-              Editorial Policies & Standards
+              <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
+              <span>Open Quick Compliance Desk (5 Tabs)</span>
             </button>
 
             {onOpenAdSense && (

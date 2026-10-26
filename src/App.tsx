@@ -15,9 +15,12 @@ import { CategoryView } from './components/CategoryView';
 import { AboutPage } from './components/AboutPage';
 import { EditorsPage } from './components/EditorsPage';
 import { ContactPage } from './components/ContactPage';
+import { PrivacyPolicyPage } from './components/PrivacyPolicyPage';
+import { TermsPage } from './components/TermsPage';
+import { DisclaimerPage } from './components/DisclaimerPage';
 import { SearchModal } from './components/SearchModal';
 import { BookmarksDrawer } from './components/BookmarksDrawer';
-import { EditorialPoliciesModal } from './components/EditorialPoliciesModal';
+import { EditorialPoliciesModal, PolicyTab } from './components/EditorialPoliciesModal';
 import { AdSenseSetupModal } from './components/AdSenseSetupModal';
 import { Footer } from './components/Footer';
 import { CustomCursor } from './components/CustomCursor';
@@ -58,7 +61,7 @@ export default function App() {
   const [searchModalOpen, setSearchModalOpen] = useState(false);
   const [bookmarksDrawerOpen, setBookmarksDrawerOpen] = useState(false);
   const [policiesModalOpen, setPoliciesModalOpen] = useState(false);
-  const [policiesDefaultTab, setPoliciesDefaultTab] = useState<'standards' | 'peer-review' | 'privacy' | 'terms'>('standards');
+  const [policiesDefaultTab, setPoliciesDefaultTab] = useState<PolicyTab>('privacy');
   const [adsenseModalOpen, setAdsenseModalOpen] = useState(false);
 
   // Save bookmarks to localStorage
@@ -108,7 +111,7 @@ export default function App() {
     setSavedArticleIds([]);
   };
 
-  const handleOpenPolicies = (tab: 'standards' | 'peer-review' | 'privacy' | 'terms' = 'standards') => {
+  const handleOpenPolicies = (tab: PolicyTab = 'privacy') => {
     setPoliciesDefaultTab(tab);
     setPoliciesModalOpen(true);
   };
@@ -216,7 +219,7 @@ export default function App() {
         {currentView.type === 'about' && (
           <AboutPage
             onNavigate={handleNavigate}
-            onOpenPolicies={() => handleOpenPolicies('standards')}
+            onOpenPolicies={() => handleOpenPolicies('about')}
           />
         )}
 
@@ -228,7 +231,28 @@ export default function App() {
         )}
 
         {currentView.type === 'contact' && (
-          <ContactPage />
+          <ContactPage onNavigate={handleNavigate} />
+        )}
+
+        {currentView.type === 'privacy' && (
+          <PrivacyPolicyPage
+            onNavigate={handleNavigate}
+            onOpenPolicies={handleOpenPolicies}
+          />
+        )}
+
+        {currentView.type === 'terms' && (
+          <TermsPage
+            onNavigate={handleNavigate}
+            onOpenPolicies={handleOpenPolicies}
+          />
+        )}
+
+        {currentView.type === 'disclaimer' && (
+          <DisclaimerPage
+            onNavigate={handleNavigate}
+            onOpenPolicies={handleOpenPolicies}
+          />
         )}
       </main>
 
@@ -259,6 +283,7 @@ export default function App() {
         isOpen={policiesModalOpen}
         onClose={() => setPoliciesModalOpen(false)}
         defaultTab={policiesDefaultTab}
+        onNavigate={handleNavigate}
       />
 
       <AdSenseSetupModal

@@ -82,4 +82,7 @@ export type ViewState =
   | { type: 'category'; categoryId: CategoryId }
   | { type: 'about' }
   | { type: 'editors' }
-  | { type: 'contact' };
+  | { type: 'contact' }
+  | { type: 'privacy' }
+  | { type: 'terms' }
+  | { type: 'disclaimer' };
