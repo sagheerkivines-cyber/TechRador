@@ -8,7 +8,7 @@ const authorKournikova = EDITORS[3];
 const authorRao = EDITORS[4];
 const authorLindqvist = EDITORS[5];
 
-export const ARTICLES: Article[] = [
+const RAW_ARTICLES: Article[] = [
   // ==========================================
   // CATEGORY 1: ARTIFICIAL INTELLIGENCE & ML (5 Articles)
   // ==========================================
@@ -1920,6 +1920,24 @@ export const ARTICLES: Article[] = [
       'FoundationDB Architecture Guide: Simulation Testing, Apple open source.'
     ]
   }
+];
+
+// Re-order articles so that "Breaking the Reticle Barrier",
+// "Distributed KV-Cache Tiering", and "Zero-Overhead Distributed Tracing"
+// are placed on Page 2 (indices >= 12 in the 12-per-page pagination)
+const nextPageArticleIds = [
+  'wafer-scale-packaging-cowos-35d',
+  'speculative-decoding-kv-cache-optimization',
+  'linux-ebpf-schedulers-kernel-612',
+];
+
+const pageOnePool = RAW_ARTICLES.filter(a => !nextPageArticleIds.includes(a.id));
+const pageTwoTargets = RAW_ARTICLES.filter(a => nextPageArticleIds.includes(a.id));
+
+export const ARTICLES: Article[] = [
+  ...pageOnePool.slice(0, 12),
+  ...pageTwoTargets,
+  ...pageOnePool.slice(12),
 ];
 
 export const getArticleById = (id: string): Article | undefined => {

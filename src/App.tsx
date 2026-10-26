@@ -7,9 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { MetricsBar } from './components/MetricsBar';
-import { ShowcaseSection } from './components/ShowcaseSection';
 import { ArticleGrid } from './components/ArticleGrid';
-import { TrendingSection } from './components/TrendingSection';
 import { ArticleReader } from './components/ArticleReader';
 import { CategoryView } from './components/CategoryView';
 import { AboutPage } from './components/AboutPage';
@@ -117,13 +115,6 @@ export default function App() {
     setPoliciesModalOpen(true);
   };
 
-  // Lead and secondary articles for homepage hero
-  const leadArticle = ARTICLES.find(a => a.id === 'wafer-scale-packaging-cowos-35d') || ARTICLES[0];
-  const secondaryArticles = ARTICLES.filter(a => 
-    a.id === 'speculative-decoding-kv-cache-optimization' || 
-    a.id === 'linux-ebpf-schedulers-kernel-612'
-  );
-
   return (
     <div className="min-h-screen bg-[#0b2721] text-[#e2e8f0] flex flex-col font-sans selection:bg-[#10b981]/30 selection:text-white">
       {/* High-tech Custom Cursor Animation */}
@@ -151,11 +142,10 @@ export default function App() {
         {currentView.type === 'home' && (
           <>
             <HeroSection
-              leadArticle={leadArticle}
-              secondaryArticles={secondaryArticles}
-              onSelectArticle={handleSelectArticle}
-              isSaved={savedArticleIds.includes(leadArticle.id)}
-              onToggleSave={handleToggleSave}
+              onExploreArticles={() => {
+                const el = document.getElementById('latest-stories-section');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }}
             />
 
             <MetricsBar
@@ -168,17 +158,11 @@ export default function App() {
               }}
             />
 
-            {/* Prominent Home Feed Display Mode Switcher (Grid & List View) */}
+            {/* Prominent Home Feed Display Mode Switcher (3 Columns Grid & List View) */}
             <HomeFeedControlsBar
               viewMode={feedViewMode}
               onViewModeChange={handleFeedViewModeChange}
               totalArticles={ARTICLES.length}
-            />
-
-            <ShowcaseSection
-              articles={ARTICLES}
-              onSelectArticle={handleSelectArticle}
-              onSelectCategory={(categoryId: CategoryId) => handleNavigate({ type: 'category', categoryId })}
             />
 
             <ArticleGrid
@@ -188,11 +172,6 @@ export default function App() {
               onToggleSave={handleToggleSave}
               viewMode={feedViewMode}
               onViewModeChange={handleFeedViewModeChange}
-            />
-
-            <TrendingSection
-              articles={ARTICLES}
-              onSelectArticle={handleSelectArticle}
             />
           </>
         )}

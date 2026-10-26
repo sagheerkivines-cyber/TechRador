@@ -1,295 +1,193 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { 
   ArrowRight, 
   Sparkles, 
-  CheckCircle2, 
+  ShieldCheck, 
   Cpu, 
   Layers, 
-  Bookmark, 
-  BookmarkCheck,
-  Eye,
-  Info
+  Terminal, 
+  Database,
+  ArrowDownCircle,
+  Activity,
+  Flame,
+  Zap
 } from 'lucide-react';
-import { Article } from '../types';
 
 interface HeroSectionProps {
-  leadArticle: Article;
-  secondaryArticles: Article[];
-  onSelectArticle: (articleId: string) => void;
-  isSaved: boolean;
-  onToggleSave: (articleId: string) => void;
+  onExploreArticles?: () => void;
+  onExploreCategories?: () => void;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
-  leadArticle,
-  secondaryArticles,
-  onSelectArticle,
-  isSaved,
-  onToggleSave,
+  onExploreArticles,
+  onExploreCategories,
 }) => {
-  const [showPromptDetails, setShowPromptDetails] = useState(false);
+  const handleScrollToStories = () => {
+    if (onExploreArticles) {
+      onExploreArticles();
+    } else {
+      const el = document.getElementById('latest-stories-section');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-[#071915] via-[#0b2721] to-[#0a231e] pt-6 pb-12 lg:pt-10 lg:pb-16 border-b border-emerald-900/40">
-      {/* Background subtle micro-grid trace pattern */}
+    <section className="relative overflow-hidden bg-gradient-to-b from-[#05131f] via-[#09221c] to-[#0b2721] pt-8 pb-14 lg:pt-14 lg:pb-18 border-b-2 border-emerald-900/40 select-none">
+      {/* Background ambient light effects & cyber grid */}
       <div 
         className="absolute inset-0 opacity-15 pointer-events-none"
         style={{
           backgroundImage: `radial-gradient(circle at 1px 1px, #10b981 1px, transparent 0)`,
-          backgroundSize: '32px 32px'
+          backgroundSize: '36px 36px'
         }}
       />
+      <div className="absolute -top-32 right-1/4 h-96 w-96 rounded-full bg-yellow-400/10 blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-32 left-1/4 h-96 w-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
-        {/* Editorial Journal Kicker Banner */}
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-emerald-900/60 pb-3">
-          <div className="flex items-center gap-2.5 text-xs">
-            <span className="font-mono text-yellow-400 font-bold tracking-wider uppercase bg-black/70 border border-yellow-400/40 px-2 py-0.5 rounded">
-              FEATURED INVESTIGATION
-            </span>
-            <span className="text-emerald-700">/</span>
-            <span className="text-slate-300 font-medium">{leadArticle.categoryName}</span>
-            <span className="text-emerald-700 hidden sm:inline">·</span>
-            <span className="text-yellow-400/80 font-mono hidden sm:inline">DOI: {leadArticle.doi}</span>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          
+          {/* ======================================================== */}
+          {/* LEFT COLUMN: BRAND HEADLINE, MISSION & CTA (7 COLS)     */}
+          {/* ======================================================== */}
+          <div className="lg:col-span-7 flex flex-col justify-center space-y-6">
+            {/* Top Journal Edition Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-yellow-400/40 bg-[#071d18]/90 px-3.5 py-1 text-xs font-mono font-bold text-yellow-300 shadow-[0_0_15px_rgba(250,204,21,0.2)] w-fit backdrop-blur-md">
+              <span className="h-2 w-2 rounded-full bg-yellow-400 animate-pulse" />
+              <span>VOL. IX · 2026 EDITION · INDEPENDENT SYSTEMS JOURNAL</span>
+            </div>
+
+            {/* Main Punchy Editorial Headline */}
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white font-sans leading-[1.15]">
+              Next-Generation{' '}
+              <span className="bg-gradient-to-r from-yellow-300 via-yellow-400 to-amber-400 bg-clip-text text-transparent drop-shadow-[0_0_25px_rgba(250,204,21,0.4)]">
+                Silicon Architecture
+              </span>{' '}
+              & Systems Research
+            </h1>
+
+            {/* Subtitle / Value Proposition */}
+            <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-sans max-w-2xl">
+              TechRador delivers empirical deep-dives into 2nm GAAFET nanosheets, CXL 3.0 disaggregated memory fabrics, low-overhead Linux 6.12 eBPF schedulers, and post-quantum quantum-safe cryptography. Authored by systems fellows and published daily.
+            </p>
+
+            {/* High-Impact Architectural Highlights */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+              <div className="flex items-center gap-2 rounded-xl border border-emerald-900/70 bg-[#061c16]/80 px-3 py-2 text-xs font-mono text-emerald-300 backdrop-blur-sm">
+                <Cpu className="h-4 w-4 text-yellow-400 shrink-0" />
+                <span className="truncate">GAAFET Nanosheets</span>
+              </div>
+              <div className="flex items-center gap-2 rounded-xl border border-emerald-900/70 bg-[#061c16]/80 px-3 py-2 text-xs font-mono text-emerald-300 backdrop-blur-sm">
+                <Database className="h-4 w-4 text-yellow-400 shrink-0" />
+                <span className="truncate">CXL 3.0 Disaggregation</span>
+              </div>
+              <div className="flex items-center gap-2 rounded-xl border border-emerald-900/70 bg-[#061c16]/80 px-3 py-2 text-xs font-mono text-emerald-300 backdrop-blur-sm">
+                <Terminal className="h-4 w-4 text-yellow-400 shrink-0" />
+                <span className="truncate">Linux 6.12 eBPF</span>
+              </div>
+            </div>
+
+            {/* Action Buttons & Navigation */}
+            <div className="flex flex-wrap items-center gap-3.5 pt-2">
+              <button
+                onClick={handleScrollToStories}
+                className="flex items-center gap-2.5 rounded-xl bg-gradient-to-r from-yellow-400 via-yellow-400 to-amber-500 px-6 py-3 text-xs sm:text-sm font-mono font-bold text-slate-950 shadow-[0_0_25px_rgba(250,204,21,0.4)] hover:shadow-[0_0_35px_rgba(250,204,21,0.6)] hover:scale-[1.02] transition-all duration-300"
+              >
+                <span>Explore All Investigations</span>
+                <ArrowDownCircle className="h-4 w-4" />
+              </button>
+
+              <button
+                onClick={handleScrollToStories}
+                className="flex items-center gap-2 rounded-xl border border-emerald-800/80 bg-[#07241d]/80 px-5 py-3 text-xs sm:text-sm font-mono font-bold text-slate-200 hover:border-yellow-400 hover:text-yellow-300 hover:bg-[#0a3127] transition-all duration-200"
+              >
+                <Zap className="h-4 w-4 text-yellow-400" />
+                <span>3 Blogs Per Row Feed</span>
+              </button>
+            </div>
+
+            {/* Micro Trust Indicators */}
+            <div className="flex flex-wrap items-center gap-4 text-[11px] font-mono text-slate-400 pt-2 border-t border-emerald-900/50">
+              <div className="flex items-center gap-1.5 text-emerald-300">
+                <ShieldCheck className="h-3.5 w-3.5 text-yellow-400" />
+                <span>Peer-Reviewed & Artifact-Verified</span>
+              </div>
+              <span>·</span>
+              <span>Santa Clara Lab</span>
+              <span>·</span>
+              <span className="text-yellow-300">DOI: 10.1038/tr</span>
+            </div>
           </div>
 
-          <div className="flex items-center gap-3 text-xs font-mono">
-            <span className="flex items-center gap-1.5 text-yellow-300">
-              <CheckCircle2 className="h-3.5 w-3.5 text-yellow-400" />
-              PEER-REVIEWED & ARTIFACT VERIFIED
-            </span>
-          </div>
-        </div>
-
-        {/* Lead Grid Layout */}
-        <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-8 items-start">
-          {/* Main Lead Feature (Columns 1-8) */}
-          <div className="lg:col-span-8 flex flex-col justify-between">
-            {/* Visual Hero Container with Animated Yellow Border */}
-            <div className="group relative overflow-hidden rounded-2xl border border-emerald-800/60 bg-[#09221c] shadow-2xl transition-all duration-300 hover:border-yellow-400 hover:shadow-[0_0_30px_rgba(250,204,21,0.25)]">
-              {/* Image Container with Keyword and Highlights Overlay */}
-              <div className="relative aspect-[16/9] w-full overflow-hidden">
+          {/* ======================================================== */}
+          {/* RIGHT COLUMN: ATTRACTIVE & PROFESSIONAL HERO IMAGE (5 COLS) */}
+          {/* ======================================================== */}
+          <div className="lg:col-span-5 relative">
+            {/* Visual Frame with Radiant Gold/Emerald Border */}
+            <div className="group relative overflow-hidden rounded-3xl border-2 border-emerald-700/60 bg-[#071e18] shadow-[0_0_40px_rgba(16,185,129,0.25)] transition-all duration-500 hover:border-yellow-400 hover:shadow-[0_0_50px_rgba(250,204,21,0.4)]">
+              
+              {/* High-Definition Silicon Microarchitecture Hero Image */}
+              <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <img
-                  src={leadArticle.heroImage}
-                  alt={leadArticle.subtopic}
+                  src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1600&q=80"
+                  alt="High-Precision Silicon Microarchitecture Wafer Die"
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   loading="eager"
                 />
-                
-                {/* Visual gradient scrim */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#081d18] via-[#081d18]/50 to-black/60" />
 
-                {/* EXACT KEYWORD WRITTEN PROMINENTLY ON TOP */}
-                <div className="absolute top-4 left-4 z-20 flex flex-wrap gap-2">
-                  <div className="flex items-center gap-2 rounded-lg bg-black/90 backdrop-blur-md border-2 border-yellow-400 px-3 py-1.5 text-xs font-mono font-bold text-yellow-300 shadow-xl">
-                    <span className="h-2 w-2 rounded-full bg-yellow-400 animate-pulse" />
-                    <span>KEYWORD: {leadArticle.subtopic.toUpperCase()}</span>
+                {/* Cybernetic lighting scrim */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#061713]/95 via-[#061713]/40 to-black/40" />
+
+                {/* Top Glassmorphic Telemetry Badge */}
+                <div className="absolute top-3.5 inset-x-3.5 flex items-center justify-between z-10">
+                  <div className="flex items-center gap-2 rounded-lg bg-black/90 backdrop-blur-md border border-yellow-400/80 px-2.5 py-1 text-[11px] font-mono font-bold text-yellow-300 shadow-xl">
+                    <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span>SYS_CORE: 2nm SILICON DIE</span>
                   </div>
+
+                  <span className="rounded-md bg-black/85 px-2 py-1 text-[10px] font-mono text-emerald-300 border border-emerald-800">
+                    LAB VERIFIED
+                  </span>
                 </div>
 
-                <div className="absolute top-4 right-4 z-20 flex items-center gap-2">
-                  <button
-                    onClick={() => setShowPromptDetails(!showPromptDetails)}
-                    className="flex items-center gap-1.5 rounded-md bg-black/90 backdrop-blur-md border border-yellow-400/70 px-2.5 py-1 text-xs font-mono text-yellow-300 hover:bg-yellow-400 hover:text-slate-950 transition-colors"
-                    title="Inspect AI generation prompt description"
-                  >
-                    <Sparkles className="h-3 w-3 text-yellow-400" />
-                    <span>AI Visual Spec</span>
-                  </button>
-                </div>
-
-                {/* OVERLAY BULLET POINTS DESCRIBING CORE ADVANTAGES IN ENGLISH */}
-                <div className="absolute bottom-4 inset-x-4 z-20 rounded-xl bg-black/90 p-3.5 backdrop-blur-md border border-yellow-400/60 shadow-xl">
-                  <div className="text-[11px] font-mono text-yellow-400 font-bold uppercase tracking-wider mb-1.5 flex items-center justify-between">
-                    <span>CORE TECHNICAL SPECIFICATIONS & ADVANTAGES</span>
-                    <span className="text-[10px] text-slate-400">BENCHMARKED IN LAB</span>
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1">
-                    {leadArticle.keyFeatures.map((feat, idx) => (
-                      <div key={idx} className="flex items-start gap-1.5 text-xs text-slate-200">
-                        <span className="text-yellow-400 font-bold">•</span>
-                        <span className="line-clamp-1">{feat}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Inset Prompt Drawer if clicked */}
-                {showPromptDetails && (
-                  <div className="absolute inset-x-4 top-16 z-30 rounded-xl border border-yellow-400/60 bg-[#061814]/95 p-4 backdrop-blur-xl animate-in fade-in slide-in-from-top-2">
-                    <div className="flex items-center justify-between pb-2 border-b border-emerald-900/60 text-xs">
-                      <span className="font-mono text-yellow-300 font-semibold flex items-center gap-1.5">
-                        <Sparkles className="h-3.5 w-3.5 text-yellow-400" />
-                        AI GENERATED VISUAL ARCHITECTURE SPECIFICATION
-                      </span>
-                      <button 
-                        onClick={() => setShowPromptDetails(false)}
-                        className="text-slate-400 hover:text-white font-mono text-xs"
-                      >
-                        Close
-                      </button>
+                {/* Center Floating Benchmark Dial Pill */}
+                <div className="absolute inset-x-4 bottom-20 z-10 flex items-center justify-between rounded-xl bg-black/90 p-3 backdrop-blur-md border border-emerald-800/80 shadow-2xl">
+                  <div>
+                    <div className="text-[10px] font-mono text-yellow-400 font-bold uppercase tracking-widest">
+                      SYSTEM READERSHIP & IMPACT
                     </div>
-                    <p className="mt-2 text-xs leading-relaxed text-slate-300 font-mono">
-                      "{leadArticle.heroPrompt}"
-                    </p>
-                    <div className="mt-2 text-[10px] text-yellow-400/80 font-mono">
-                      Target Keyword: {leadArticle.subtopic} · Style: 8k Macro Silicon Die
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Story Content & Teaser */}
-              <div className="p-6 sm:p-8">
-                {/* Clean unboxed metadata */}
-                <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400 mb-3">
-                  <span className="text-yellow-400 font-semibold">{leadArticle.subtopic}</span>
-                  <span aria-hidden="true">·</span>
-                  <span>{leadArticle.readTime}</span>
-                  <span aria-hidden="true">·</span>
-                  <span>Published {leadArticle.publishedAt}</span>
-                </div>
-
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight text-white leading-tight font-sans group-hover:text-yellow-300 transition-colors">
-                  {leadArticle.title}
-                </h1>
-
-                <p className="mt-3 text-base sm:text-lg text-slate-300 leading-relaxed font-sans">
-                  {leadArticle.subtitle}
-                </p>
-
-                <p className="mt-4 text-sm text-slate-400 leading-relaxed line-clamp-3">
-                  {leadArticle.abstract}
-                </p>
-
-                {/* Key Benchmark Spec Strip */}
-                <div className="mt-6 grid grid-cols-2 sm:grid-cols-4 gap-3 rounded-xl border border-emerald-900/60 bg-[#061a15]/80 p-3.5 group-hover:border-yellow-400/40 transition-colors">
-                  {leadArticle.metrics.map((m, idx) => (
-                    <div key={idx} className="flex flex-col">
-                      <span className="text-[11px] font-mono text-emerald-400/90">{m.label}</span>
-                      <span className="text-base font-bold font-mono text-white mt-0.5">{m.value}</span>
-                      {m.delta && (
-                        <span className="text-[10px] font-mono text-yellow-400 font-medium">
-                          {m.delta}
-                        </span>
-                      )}
-                    </div>
-                  ))}
-                </div>
-
-                {/* Actions & Author footer */}
-                <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-emerald-900/50 pt-5">
-                  {/* Author bio snippet */}
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={leadArticle.author.avatar}
-                      alt={leadArticle.author.name}
-                      className="h-10 w-10 rounded-full object-cover border border-yellow-400/60"
-                    />
-                    <div>
-                      <div className="text-sm font-semibold text-white">
-                        {leadArticle.author.name}
-                      </div>
-                      <div className="text-xs text-yellow-400/90">
-                        {leadArticle.author.role}
-                      </div>
+                    <div className="text-xl font-mono font-extrabold text-white">
+                      185,000+
+                      <span className="text-xs text-emerald-400 font-normal ml-1">fellows / month</span>
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-2.5">
-                    <button
-                      onClick={() => onToggleSave(leadArticle.id)}
-                      className={`flex items-center justify-center h-10 w-10 rounded-lg border transition-colors ${
-                        isSaved 
-                          ? 'border-yellow-400 bg-yellow-400/20 text-yellow-300' 
-                          : 'border-emerald-800/60 bg-emerald-950/40 text-slate-300 hover:text-white hover:border-yellow-400'
-                      }`}
-                      aria-label={isSaved ? 'Remove from reading list' : 'Save to reading list'}
-                      title={isSaved ? 'Saved in reading queue' : 'Bookmark article'}
-                    >
-                      {isSaved ? <BookmarkCheck className="h-4 w-4" /> : <Bookmark className="h-4 w-4" />}
-                    </button>
-
-                    <button
-                      onClick={() => onSelectArticle(leadArticle.id)}
-                      className="inline-flex items-center gap-2 rounded-lg bg-yellow-400 px-5 py-2.5 text-sm font-bold text-slate-950 hover:bg-yellow-300 transition-all shadow-md group"
-                    >
-                      <span>Read Full Investigation</span>
-                      <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </button>
+                  <div className="h-9 w-9 rounded-lg bg-yellow-400/20 border border-yellow-400/50 flex items-center justify-center text-yellow-400">
+                    <Activity className="h-5 w-5 animate-pulse" />
                   </div>
                 </div>
-              </div>
-            </div>
-          </div>
 
-          {/* Secondary Spotlight Columns (Columns 9-12) with Animated Yellow Borders */}
-          <div className="lg:col-span-4 flex flex-col gap-6">
-            <div className="flex items-center justify-between border-b border-emerald-900/60 pb-2">
-              <span className="font-mono text-xs font-bold uppercase tracking-wider text-yellow-400">
-                CURATED ARCHITECTURE BRIEFS
-              </span>
-              <span className="text-[11px] font-mono text-slate-400">DAILY DISPATCH</span>
-            </div>
-
-            {secondaryArticles.map((article) => (
-              <article
-                key={article.id}
-                onClick={() => onSelectArticle(article.id)}
-                className="group relative cursor-pointer rounded-xl border border-emerald-900/60 bg-[#0d2c25]/80 p-5 transition-all duration-300 ease-out hover:border-yellow-400 hover:bg-[#11382e] hover:shadow-[0_0_25px_rgba(250,204,21,0.22)]"
-              >
-                {/* Visual Thumbnail with Keyword Banner & English Points */}
-                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-lg mb-4 border border-emerald-950">
-                  <img
-                    src={article.heroImage}
-                    alt={article.subtopic}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#081d18]/90 via-transparent to-black/60" />
-                  
-                  {/* Keyword on top of secondary image */}
-                  <div className="absolute top-2 left-2 z-10">
-                    <span className="rounded bg-black/90 px-2 py-0.5 text-[10px] font-mono font-bold text-yellow-300 border border-yellow-400/80">
-                      {article.subtopic}
+                {/* Bottom Overlay Info Banner */}
+                <div className="absolute bottom-3.5 inset-x-3.5 z-10 rounded-xl bg-[#061a14]/95 p-3 backdrop-blur-md border border-yellow-400/50">
+                  <div className="flex items-center justify-between text-[11px] font-mono text-slate-200">
+                    <span className="font-bold text-white flex items-center gap-1.5">
+                      <span className="h-1.5 w-1.5 rounded-full bg-yellow-400" />
+                      Physical Characterization Lab
                     </span>
+                    <span className="text-yellow-400 font-bold">Santa Clara, CA</span>
                   </div>
-
-                  {/* Bullet highlight on bottom of image */}
-                  <div className="absolute bottom-2 inset-x-2 z-10 rounded bg-black/85 p-2 backdrop-blur-md border border-emerald-900/60">
-                    <div className="text-[10px] text-slate-200 line-clamp-1 flex items-center gap-1">
-                      <span className="text-yellow-400 font-bold">•</span>
-                      <span>{article.keyFeatures[0]}</span>
-                    </div>
+                  <div className="mt-1 text-[10px] text-slate-400 font-mono flex items-center justify-between">
+                    <span>Deterministic CXL 3.0 Cluster</span>
+                    <span className="text-emerald-400">99.98% Accuracy</span>
                   </div>
                 </div>
+              </div>
+            </div>
 
-                <div className="flex items-center gap-2 text-[11px] text-slate-400 mb-2">
-                  <span className="text-yellow-400 font-semibold">{article.categoryName}</span>
-                  <span aria-hidden="true">·</span>
-                  <span>{article.readTime}</span>
-                </div>
-
-                <h2 className="text-base font-bold text-white group-hover:text-yellow-300 transition-colors line-clamp-2">
-                  {article.title}
-                </h2>
-
-                <p className="mt-2 text-xs text-slate-400 line-clamp-2 leading-relaxed">
-                  {article.subtitle}
-                </p>
-
-                <div className="mt-4 flex items-center justify-between border-t border-emerald-900/40 pt-3 text-xs">
-                  <span className="text-slate-300 font-medium">
-                    {article.author.name}
-                  </span>
-                  <span className="flex items-center gap-1 font-mono text-emerald-400 group-hover:text-yellow-300 group-hover:translate-x-1 transition-all">
-                    <span>Read</span>
-                    <ArrowRight className="h-3 w-3" />
-                  </span>
-                </div>
-              </article>
-            ))}
+            {/* Glowing Accent Corner Beacon */}
+            <div className="absolute -bottom-3 -right-3 -z-10 h-24 w-24 rounded-full bg-yellow-400/30 blur-2xl" />
           </div>
+
         </div>
       </div>
     </section>
