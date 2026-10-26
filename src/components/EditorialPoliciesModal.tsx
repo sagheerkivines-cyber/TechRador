@@ -177,7 +177,7 @@ export const EditorialPoliciesModal: React.FC<EditorialPoliciesModalProps> = ({
 
               <div className="rounded-xl border border-emerald-900/80 bg-[#061713] p-3 text-xs space-y-1 font-mono">
                 <div className="text-slate-400">Data Protection Officer (DPO) Contact:</div>
-                <div className="text-yellow-300 font-bold">sagheerofficial21dnb@gmail.com · Phone: 03069256639</div>
+                <div className="text-yellow-300 font-bold">info@techrador.com · Phone: 03069256639</div>
                 <div className="text-slate-400">Address: 4400 Bohannon Dr, Suite 200, Santa Clara, CA 95054</div>
               </div>
             </div>
@@ -307,8 +307,8 @@ export const EditorialPoliciesModal: React.FC<EditorialPoliciesModalProps> = ({
                     <Mail className="h-3.5 w-3.5 text-yellow-400" />
                     Official Editorial Email
                   </div>
-                  <a href="mailto:sagheerofficial21dnb@gmail.com" className="text-yellow-300 font-bold underline block break-all text-xs">
-                    sagheerofficial21dnb@gmail.com
+                  <a href="mailto:info@techrador.com" className="text-yellow-300 font-bold underline block break-all text-xs">
+                    info@techrador.com
                   </a>
                   <div className="text-[11px] text-slate-400 pt-1">Response Time: Within 24–48 hours</div>
                 </div>

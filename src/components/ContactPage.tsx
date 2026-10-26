@@ -259,8 +259,8 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                 </div>
                 <div className="text-slate-400 pt-1">Direct Newsroom Email:</div>
                 <div className="font-bold text-yellow-300 text-xs break-all">
-                  <a href="mailto:sagheerofficial21dnb@gmail.com" className="hover:underline">
-                    sagheerofficial21dnb@gmail.com
+                  <a href="mailto:info@techrador.com" className="hover:underline">
+                    info@techrador.com
                   </a>
                 </div>
                 <div className="text-slate-400 pt-1">PGP Fingerprint:</div>
@@ -281,13 +281,13 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
               <p className="text-xs text-slate-300 leading-relaxed font-sans">
                 TechRador Journal Newsroom<br />
                 Direct Desk: 03069256639<br />
-                Email: sagheerofficial21dnb@gmail.com
+                Email: info@techrador.com
               </p>
               <div className="pt-2 text-xs font-mono text-yellow-300 space-y-1.5">
                 <div className="flex items-center gap-1.5">
                   <span className="text-slate-400">Primary Email:</span>
-                  <a href="mailto:sagheerofficial21dnb@gmail.com" className="font-semibold underline hover:text-white">
-                    sagheerofficial21dnb@gmail.com
+                  <a href="mailto:info@techrador.com" className="font-semibold underline hover:text-white">
+                    info@techrador.com
                   </a>
                 </div>
                 <div className="flex items-center gap-1.5">
@@ -296,7 +296,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
                     03069256639
                   </a>
                 </div>
-                <div>General Editorial: sagheerofficial21dnb@gmail.com</div>
+                <div>General Editorial: info@techrador.com</div>
               </div>
             </div>
           </div>

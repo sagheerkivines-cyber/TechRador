@@ -83,7 +83,7 @@ export const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onNavigate
             </p>
             <ul className="list-disc pl-6 space-y-2 text-slate-300">
               <li>
-                <strong className="text-white">Direct Communication & Pitches:</strong> If you contact us directly (via email at <a href="mailto:sagheerofficial21dnb@gmail.com" className="text-yellow-300 underline">sagheerofficial21dnb@gmail.com</a>, phone at <a href="tel:03069256639" className="text-yellow-300 underline">03069256639</a>, or our newsroom submission form), we may receive your full name, email address, institutional affiliation, phone number, the contents of your technical inquiry or manuscript submission, and any attachments you choose to transmit.
+                <strong className="text-white">Direct Communication & Pitches:</strong> If you contact us directly (via email at <a href="mailto:info@techrador.com" className="text-yellow-300 underline">info@techrador.com</a>, phone at <a href="tel:03069256639" className="text-yellow-300 underline">03069256639</a>, or our newsroom submission form), we may receive your full name, email address, institutional affiliation, phone number, the contents of your technical inquiry or manuscript submission, and any attachments you choose to transmit.
               </li>
               <li>
                 <strong className="text-white">Author & Peer-Review Profiles:</strong> When academic or industrial researchers register to submit peer-reviewed manuscripts or review technical papers, we collect professional biographical information, ORCID identifiers, and verified GitHub/institutional repositories.
@@ -194,7 +194,7 @@ export const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onNavigate
               <li><strong>The right to data portability:</strong> You have the right to request that we transfer the data that we have collected to another organization, or directly to you.</li>
             </ul>
             <p className="text-xs text-slate-400">
-              If you make a formal request, we have one month to respond to you. If you would like to exercise any of these statutory rights, please contact our Data Protection Officer directly at <a href="mailto:sagheerofficial21dnb@gmail.com" className="text-yellow-300 underline font-semibold">sagheerofficial21dnb@gmail.com</a>.
+              If you make a formal request, we have one month to respond to you. If you would like to exercise any of these statutory rights, please contact our Data Protection Officer directly at <a href="mailto:info@techrador.com" className="text-yellow-300 underline font-semibold">info@techrador.com</a>.
             </p>
           </section>
 
@@ -257,8 +257,8 @@ export const PrivacyPolicyPage: React.FC<PrivacyPolicyPageProps> = ({ onNavigate
                   <Mail className="h-3.5 w-3.5 text-yellow-400" />
                   Official Privacy Email
                 </div>
-                <a href="mailto:sagheerofficial21dnb@gmail.com" className="text-yellow-300 font-semibold underline block break-all">
-                  sagheerofficial21dnb@gmail.com
+                <a href="mailto:info@techrador.com" className="text-yellow-300 font-semibold underline block break-all">
+                  info@techrador.com
                 </a>
               </div>
               <div className="border border-emerald-900/80 bg-[#061713] p-4 rounded-xl space-y-1">

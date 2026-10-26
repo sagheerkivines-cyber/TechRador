@@ -185,7 +185,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate, onOpenPolicies
             </div>
             <div>
               <div className="text-xs font-mono text-emerald-300 uppercase">Direct Editorial Desk</div>
-              <div className="text-sm font-bold text-white">sagheerofficial21dnb@gmail.com · Tel: 03069256639</div>
+              <div className="text-sm font-bold text-white">info@techrador.com · Tel: 03069256639</div>
               <div className="text-xs text-slate-400">4400 Bohannon Dr, Suite 200, Santa Clara, CA 95054</div>
             </div>
           </div>

@@ -45,6 +45,16 @@ export default defineConfig(() => {
               }
             }
 
+            if (req.url === '/favicon.svg' || req.url?.startsWith('/favicon.svg?')) {
+              const faviconPath = path.resolve(__dirname, 'public/favicon.svg');
+              if (fs.existsSync(faviconPath)) {
+                res.setHeader('Content-Type', 'image/svg+xml; charset=utf-8');
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                res.setHeader('Cache-Control', 'public, max-age=3600');
+                return res.end(fs.readFileSync(faviconPath, 'utf-8'));
+              }
+            }
+
             next();
           });
         },

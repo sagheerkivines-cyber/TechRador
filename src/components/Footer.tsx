@@ -138,10 +138,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPolicies, onOp
             <ul className="space-y-2 text-xs">
               <li>
                 <a
-                  href="mailto:sagheerofficial21dnb@gmail.com"
+                  href="mailto:info@techrador.com"
                   className="text-yellow-300 font-semibold hover:underline block break-all"
                 >
-                  ✉ sagheerofficial21dnb@gmail.com
+                  ✉ info@techrador.com
                 </a>
               </li>
               <li>

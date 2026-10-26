@@ -164,8 +164,8 @@ export const DisclaimerPage: React.FC<DisclaimerPageProps> = ({ onNavigate }) =>
                   <Mail className="h-3.5 w-3.5 text-yellow-400" />
                   Editorial Desk Email
                 </div>
-                <a href="mailto:sagheerofficial21dnb@gmail.com" className="text-yellow-300 font-semibold underline block break-all">
-                  sagheerofficial21dnb@gmail.com
+                <a href="mailto:info@techrador.com" className="text-yellow-300 font-semibold underline block break-all">
+                  info@techrador.com
                 </a>
               </div>
               <div className="border border-emerald-900/80 bg-[#061713] p-4 rounded-xl space-y-1">
