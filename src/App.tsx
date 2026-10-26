@@ -25,6 +25,7 @@ import { AdSenseSetupModal } from './components/AdSenseSetupModal';
 import { Footer } from './components/Footer';
 import { CustomCursor } from './components/CustomCursor';
 import { HomeFeedControlsBar } from './components/HomeFeedControlsBar';
+import { DailyWireTicker } from './components/DailyWireTicker';
 
 import { ARTICLES, getArticleById } from './data/articles';
 import { CategoryId, ViewState } from './types';
@@ -137,6 +138,12 @@ export default function App() {
         onOpenBookmarks={() => setBookmarksDrawerOpen(true)}
         onOpenPolicies={() => handleOpenPolicies('standards')}
         onOpenAdSense={() => setAdsenseModalOpen(true)}
+      />
+
+      {/* Daily Wire Live Continuous Research Ticker Strip */}
+      <DailyWireTicker
+        articles={ARTICLES}
+        onSelectArticle={handleSelectArticle}
       />
 
       {/* Main View Router */}

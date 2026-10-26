@@ -12,9 +12,9 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPolicies, onOpenAdSense }) => {
   return (
-    <footer className="border-t border-emerald-900/60 bg-[#061713] text-[#e2e8f0] pt-14 pb-12">
+    <footer className="border-t-2 border-blue-900/70 bg-[#040c17] text-[#e2e8f0] pt-14 pb-12 shadow-2xl">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 pb-12 border-b border-emerald-900/50">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 pb-12 border-b border-blue-900/50">
           {/* Column 1: Brand & Editorial Mission (2 cols on large) */}
           <div className="lg:col-span-2 space-y-4">
             <button
@@ -32,9 +32,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPolicies, onOp
               TechRador is an independent journal of cutting-edge technology, silicon architecture, Linux kernel pipelines, and digital living. Published daily by systems researchers and hardware engineers.
             </p>
 
-            <div className="pt-2 flex flex-col space-y-1.5 text-xs font-mono text-emerald-400">
-              <span className="flex items-center gap-1.5 text-slate-300">
-                <ShieldCheck className="h-4 w-4 text-emerald-400" />
+            <div className="pt-2 flex flex-col space-y-1.5 text-xs font-mono text-yellow-400">
+              <span className="flex items-center gap-1.5 text-slate-200">
+                <ShieldCheck className="h-4 w-4 text-yellow-400" />
                 Physical Silicon Characterization Lab
               </span>
               <span className="text-slate-400 text-[11px]">
@@ -45,33 +45,30 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPolicies, onOp
 
           {/* Column 2: 5 Tech Categories */}
           <div>
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-300 mb-3">
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-yellow-400 mb-3">
               5 Tech Categories
             </h3>
             <ul className="space-y-2 text-xs">
-              {CATEGORIES.map(category => (
-                <li key={category.id}>
+              {CATEGORIES.map((cat) => (
+                <li key={cat.id}>
                   <button
                     onClick={() => {
-                      onNavigate({ type: 'category', categoryId: category.id });
+                      onNavigate({ type: 'category', categoryId: cat.id });
                       window.scrollTo({ top: 0, behavior: 'smooth' });
                     }}
-                    className="text-slate-300 hover:text-emerald-300 transition-colors flex items-center gap-1 group text-left"
+                    className="text-slate-300 hover:text-yellow-300 transition-colors flex items-center gap-1 text-left"
                   >
-                    <span>{category.name}</span>
-                    <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <span>{cat.name}</span>
                   </button>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 3: Editorial Policies & Governance */}
-          {/* Column 3: 5 Essential Pages & Editorial Policies */}
+          {/* Column 3: 5 Essential Editorial Policies & Legal Pages */}
           <div>
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-yellow-400 mb-3 flex items-center gap-1.5">
-              <ShieldCheck className="h-3.5 w-3.5 text-yellow-400" />
-              <span>Editorial Policies & Legal Pages</span>
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-yellow-400 mb-3">
+              5 Essential Legal Pages
             </h3>
             <ul className="space-y-2 text-xs">
               <li>
@@ -89,7 +86,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPolicies, onOp
                   className="text-slate-300 hover:text-yellow-300 transition-colors flex items-center justify-between w-full group text-left"
                 >
                   <span className="font-semibold text-white group-hover:text-yellow-300">2. Terms & Conditions</span>
-                  <span className="text-[10px] font-mono text-emerald-400">2026</span>
+                  <span className="text-[10px] font-mono text-emerald-400">Terms</span>
                 </button>
               </li>
               <li>
@@ -119,10 +116,10 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPolicies, onOp
                   <span className="text-[10px] font-mono text-emerald-400">Ethics</span>
                 </button>
               </li>
-              <li className="pt-1.5 border-t border-emerald-900/60">
+              <li className="pt-1.5 border-t border-blue-900/60">
                 <button
                   onClick={() => onOpenPolicies('privacy')}
-                  className="text-[11px] font-mono text-emerald-400 hover:text-emerald-300 hover:underline flex items-center gap-1"
+                  className="text-[11px] font-mono text-yellow-400 hover:text-yellow-300 hover:underline flex items-center gap-1"
                 >
                   <span>⊞ Open Quick Compliance Desk (5 Tabs)</span>
                 </button>
@@ -196,12 +193,12 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPolicies, onOp
           <div className="text-center sm:text-left">
             © 2026 TechRador Inc. All rights reserved. Independent Journal of Cutting-Edge Technology.
           </div>
-          <div className="flex items-center gap-4 text-emerald-400/80">
+          <div className="flex items-center gap-4 text-blue-300/80">
             <span>Santa Clara, CA</span>
             <span>·</span>
             <span>ISSN 2841-904X</span>
             <span>·</span>
-            <span className="text-emerald-300">Published Daily</span>
+            <span className="text-yellow-300 font-semibold">Published Daily</span>
           </div>
         </div>
       </div>

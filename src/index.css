@@ -33,6 +33,23 @@ body {
   background: #1d5f50;
 }
 
+/* Custom sidebar slider scrollbar */
+.sidebar-slider-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar-slider-scroll::-webkit-scrollbar-track {
+  background: rgba(4, 18, 14, 0.6);
+  border-radius: 4px;
+}
+.sidebar-slider-scroll::-webkit-scrollbar-thumb {
+  background: #eab308;
+  border-radius: 4px;
+  box-shadow: 0 0 6px rgba(250, 204, 21, 0.4);
+}
+.sidebar-slider-scroll::-webkit-scrollbar-thumb:hover {
+  background: #facc15;
+}
+
 /* Precision cyber cursor styling for fine pointers */
 @media (hover: hover) and (pointer: fine) {
   body.custom-cursor-enabled,
@@ -46,4 +63,25 @@ body {
   body.custom-cursor-enabled textarea {
     cursor: text !important;
   }
+}
+
+/* Continuous Marquee Ticker */
+@keyframes ticker-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-ticker {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 45s linear infinite;
+  will-change: transform;
+}
+
+.animate-ticker:hover {
+  animation-play-state: paused;
 }

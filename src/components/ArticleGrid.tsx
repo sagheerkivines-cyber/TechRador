@@ -2,17 +2,17 @@ import React, { useState, useMemo } from 'react';
 import { 
   ChevronLeft, 
   ChevronRight, 
-  SlidersHorizontal, 
-  Filter, 
   Search, 
   Layers,
-  ArrowRight,
   LayoutGrid,
-  LayoutList
+  LayoutList,
+  Sparkles,
+  X,
 } from 'lucide-react';
 import { Article, CategoryId } from '../types';
 import { CATEGORIES } from '../data/categories';
 import { ArticleCard } from './ArticleCard';
+import { BlogSidebar } from './BlogSidebar';
 
 interface ArticleGridProps {
   articles: Article[];
@@ -25,7 +25,8 @@ interface ArticleGridProps {
   onViewModeChange?: (mode: 'grid' | 'list') => void;
 }
 
-const ITEMS_PER_PAGE = 6;
+// Exactly 12 articles per page (4 rows of 3 blogs each)
+const ITEMS_PER_PAGE = 12;
 
 export const ArticleGrid: React.FC<ArticleGridProps> = ({
   articles,
@@ -38,6 +39,7 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({
   onViewModeChange: propOnViewModeChange,
 }) => {
   const [activeCategory, setActiveCategory] = useState<CategoryId | 'all'>(selectedCategoryId);
+  const [selectedKeyword, setSelectedKeyword] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchFilter, setSearchFilter] = useState<string>('');
   const [internalViewMode, setInternalViewMode] = useState<'grid' | 'list'>(() => {
@@ -72,27 +74,38 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({
 
   const handleCategoryChange = (catId: CategoryId | 'all') => {
     setActiveCategory(catId);
+    setSelectedKeyword(null);
     setCurrentPage(1);
     if (onSelectCategory) {
       onSelectCategory(catId);
     }
   };
 
-  // Filter articles
+  const handleSelectKeyword = (keyword: string | null) => {
+    setSelectedKeyword(keyword);
+    setCurrentPage(1);
+    const el = document.getElementById('latest-stories-section');
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // Filter articles by Category, Keyword, and Search
   const filteredArticles = useMemo(() => {
     return articles.filter(article => {
       const matchesCategory = activeCategory === 'all' || article.categoryId === activeCategory;
+      const matchesKeyword = !selectedKeyword || 
+        article.subtopic.toLowerCase() === selectedKeyword.toLowerCase() ||
+        article.subtopic.toLowerCase().includes(selectedKeyword.toLowerCase());
       const matchesSearch = searchFilter.trim() === '' || 
         article.title.toLowerCase().includes(searchFilter.toLowerCase()) ||
         article.subtitle.toLowerCase().includes(searchFilter.toLowerCase()) ||
         article.subtopic.toLowerCase().includes(searchFilter.toLowerCase()) ||
         article.author.name.toLowerCase().includes(searchFilter.toLowerCase());
       
-      return matchesCategory && matchesSearch;
+      return matchesCategory && matchesKeyword && matchesSearch;
     });
-  }, [articles, activeCategory, searchFilter]);
+  }, [articles, activeCategory, selectedKeyword, searchFilter]);
 
-  // Pagination calculation
+  // Pagination calculation: strictly 12 articles per page (3 blogs per row x 4 rows)
   const totalPages = Math.max(1, Math.ceil(filteredArticles.length / ITEMS_PER_PAGE));
   const currentArticles = useMemo(() => {
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -102,7 +115,6 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({
   const goToNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage(prev => prev + 1);
-      // Smooth scroll to top of section
       const el = document.getElementById('latest-stories-section');
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
@@ -118,14 +130,16 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({
 
   return (
     <section id="latest-stories-section" className="py-12 bg-[#0b2721] border-b border-emerald-900/40">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+      <div className="mx-auto max-w-[1520px] px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-4 border-b border-emerald-900/60 pb-5">
           <div>
             <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 uppercase tracking-wider mb-1">
               <span>EXPLORE ALL RESEARCH</span>
               <span>·</span>
-              <span>20 FULL-LENGTH PAPERS</span>
+              <span className="text-yellow-400 font-bold">3 BLOGS PER LINE</span>
+              <span>·</span>
+              <span>12 ON PAGE 1, REST ON NEXT PAGE</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white font-sans">
               Latest Blog Stories & Technical Investigations
@@ -143,11 +157,11 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({
                     ? 'bg-yellow-400 text-slate-950 font-bold shadow-[0_0_12px_rgba(250,204,21,0.35)]'
                     : 'text-slate-300 hover:text-yellow-300 hover:bg-emerald-900/40'
                 }`}
-                title="Switch to Grid View (Multi-column cards)"
-                aria-label="Grid View"
+                title="Switch to 3-Column Grid View"
+                aria-label="3-Column Grid View"
               >
                 <LayoutGrid className="h-3.5 w-3.5" />
-                <span>Grid View</span>
+                <span>3 Columns</span>
               </button>
 
               <button
@@ -157,7 +171,7 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({
                     ? 'bg-yellow-400 text-slate-950 font-bold shadow-[0_0_12px_rgba(250,204,21,0.35)]'
                     : 'text-slate-300 hover:text-yellow-300 hover:bg-emerald-900/40'
                 }`}
-                title="Switch to List View (Horizontal deep layout)"
+                title="Switch to List View"
                 aria-label="List View"
               >
                 <LayoutList className="h-3.5 w-3.5" />
@@ -190,7 +204,7 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({
           </div>
         </div>
 
-        {/* Category Segmented Tabs (Functional Buttons) */}
+        {/* Category Segmented Tabs */}
         <div className="mt-6 flex flex-wrap items-center gap-1.5 p-1 bg-[#081d18] rounded-xl border border-emerald-900/60">
           <button
             onClick={() => handleCategoryChange('all')}
@@ -225,93 +239,150 @@ export const ArticleGrid: React.FC<ArticleGridProps> = ({
           })}
         </div>
 
-        {/* Article Grid / List Container */}
-        {currentArticles.length > 0 ? (
-          <div className={activeViewMode === 'grid'
-            ? "mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
-            : "mt-8 flex flex-col gap-5"
-          }>
-            {currentArticles.map((article) => (
-              <ArticleCard
-                key={article.id}
-                article={article}
-                layout={activeViewMode}
-                onSelect={onSelectArticle}
-                isSaved={savedArticleIds.includes(article.id)}
-                onToggleSave={onToggleSave}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="mt-12 rounded-2xl border border-emerald-900/40 bg-[#0d2c25]/40 p-12 text-center">
-            <Layers className="mx-auto h-8 w-8 text-yellow-400 mb-3" />
-            <h3 className="text-base font-semibold text-white">No articles matched your criteria</h3>
-            <p className="mt-1 text-xs text-slate-400">
-              Try adjusting your search terms or select another category filter.
-            </p>
+        {/* Active Filter Notification Bar */}
+        {(selectedKeyword || searchFilter) && (
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-yellow-400/50 bg-[#092b21] p-3 text-xs">
+            <div className="flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-yellow-400" />
+              <span className="text-slate-300">Filtering research by:</span>
+              {selectedKeyword && (
+                <span className="font-mono font-bold text-yellow-300 bg-black/60 px-2 py-0.5 rounded border border-yellow-400/40">
+                  Keyword: {selectedKeyword}
+                </span>
+              )}
+              {searchFilter && (
+                <span className="font-mono font-bold text-emerald-300 bg-black/60 px-2 py-0.5 rounded border border-emerald-400/40">
+                  Search: "{searchFilter}"
+                </span>
+              )}
+              <span className="text-slate-400">({filteredArticles.length} matching articles)</span>
+            </div>
+
             <button
-              onClick={() => { setActiveCategory('all'); setSearchFilter(''); }}
-              className="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-yellow-400/20 border border-yellow-400/50 px-3.5 py-1.5 text-xs font-medium text-yellow-300 hover:bg-yellow-400/30"
+              onClick={() => {
+                setSelectedKeyword(null);
+                setSearchFilter('');
+                setCurrentPage(1);
+              }}
+              className="flex items-center gap-1 text-[11px] font-mono font-bold text-yellow-400 hover:text-white underline"
             >
-              Reset Filters
+              <X className="h-3.5 w-3.5" />
+              <span>Clear Filter</span>
             </button>
           </div>
         )}
 
-        {/* Functional Pagination Bar */}
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-emerald-900/60 pt-6">
-          <div className="text-xs text-slate-400 font-mono">
-            Showing <span className="text-white font-semibold">{(currentPage - 1) * ITEMS_PER_PAGE + 1}</span> to{' '}
-            <span className="text-white font-semibold">
-              {Math.min(currentPage * ITEMS_PER_PAGE, filteredArticles.length)}
-            </span> of{' '}
-            <span className="text-yellow-300 font-semibold">{filteredArticles.length}</span> research papers
+        {/* ========================================================================= */}
+        {/* MAIN LAYOUT: EXACTLY 3 BLOGS IN ONE LINE + RIGHT SIDEBAR (KEYWORDS & FEED) */}
+        {/* ========================================================================= */}
+        <div className="mt-8 grid grid-cols-1 xl:grid-cols-12 gap-7 items-start">
+          {/* LEFT 9 COLUMNS: STRICTLY 3 BLOGS PER LINE (4 ROWS X 3 BLOGS = 12 ARTICLES) */}
+          <div className="xl:col-span-9 flex flex-col">
+            {currentArticles.length > 0 ? (
+              <div className={activeViewMode === 'grid'
+                ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+                : "flex flex-col gap-5"
+              }>
+                {currentArticles.map((article) => (
+                  <ArticleCard
+                    key={article.id}
+                    article={article}
+                    layout={activeViewMode}
+                    onSelect={onSelectArticle}
+                    isSaved={savedArticleIds.includes(article.id)}
+                    onToggleSave={onToggleSave}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="rounded-2xl border border-emerald-900/40 bg-[#0d2c25]/40 p-12 text-center">
+                <Layers className="mx-auto h-8 w-8 text-yellow-400 mb-3" />
+                <h3 className="text-base font-semibold text-white">No articles matched your criteria</h3>
+                <p className="mt-1 text-xs text-slate-400">
+                  Try adjusting your search terms, select another keyword, or reset category filter.
+                </p>
+                <button
+                  onClick={() => { setActiveCategory('all'); setSelectedKeyword(null); setSearchFilter(''); }}
+                  className="mt-4 inline-flex items-center gap-1.5 rounded-lg bg-yellow-400/20 border border-yellow-400/50 px-3.5 py-1.5 text-xs font-medium text-yellow-300 hover:bg-yellow-400/30"
+                >
+                  Reset All Filters
+                </button>
+              </div>
+            )}
+
+            {/* Functional Pagination Bar: Exactly 12 Articles Per Page */}
+            {filteredArticles.length > 0 && (
+              <div className="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-emerald-900/60 pt-6">
+                <div className="text-xs text-slate-400 font-mono">
+                  Showing <span className="text-white font-semibold">{(currentPage - 1) * ITEMS_PER_PAGE + 1}</span> to{' '}
+                  <span className="text-white font-semibold">
+                    {Math.min(currentPage * ITEMS_PER_PAGE, filteredArticles.length)}
+                  </span> of{' '}
+                  <span className="text-yellow-300 font-semibold">{filteredArticles.length}</span> research papers
+                  <span className="text-emerald-400 ml-2">(12 on this page, rest on next page)</span>
+                </div>
+
+                {/* Pagination Controls */}
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={goToPrevPage}
+                    disabled={currentPage === 1}
+                    className={`flex items-center gap-1.5 rounded-lg border px-3.5 py-1.5 text-xs font-medium transition-colors ${
+                      currentPage === 1
+                        ? 'border-emerald-950 bg-emerald-950/20 text-slate-600 cursor-not-allowed'
+                        : 'border-emerald-800/60 bg-[#09221c] text-slate-200 hover:border-yellow-400 hover:text-yellow-300'
+                    }`}
+                  >
+                    <ChevronLeft className="h-3.5 w-3.5" />
+                    <span>Previous</span>
+                  </button>
+
+                  {/* Page Jump Badges */}
+                  <div className="flex items-center gap-1 px-1 text-xs font-mono">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+                      <button
+                        key={pageNum}
+                        onClick={() => {
+                          setCurrentPage(pageNum);
+                          const el = document.getElementById('latest-stories-section');
+                          if (el) el.scrollIntoView({ behavior: 'smooth' });
+                        }}
+                        className={`flex h-8 w-8 items-center justify-center rounded-lg font-semibold transition-all duration-200 ${
+                          currentPage === pageNum
+                            ? 'bg-yellow-400 text-slate-950 font-bold shadow-[0_0_14px_rgba(250,204,21,0.35)] scale-105'
+                            : 'border border-emerald-900/50 bg-[#09221c] text-slate-300 hover:border-yellow-400 hover:text-yellow-300'
+                        }`}
+                      >
+                        {pageNum}
+                      </button>
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={goToNextPage}
+                    disabled={currentPage === totalPages}
+                    className={`flex items-center gap-1.5 rounded-lg border px-3.5 py-1.5 text-xs font-medium transition-colors ${
+                      currentPage === totalPages
+                        ? 'border-emerald-950 bg-emerald-950/20 text-slate-600 cursor-not-allowed'
+                        : 'border-emerald-800/60 bg-[#09221c] text-slate-200 hover:border-yellow-400 hover:text-yellow-300'
+                    }`}
+                  >
+                    <span>Next</span>
+                    <ChevronRight className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* Pagination Controls */}
-          <div className="flex items-center gap-2">
-            <button
-              onClick={goToPrevPage}
-              disabled={currentPage === 1}
-              className={`flex items-center gap-1.5 rounded-lg border px-3.5 py-1.5 text-xs font-medium transition-colors ${
-                currentPage === 1
-                  ? 'border-emerald-950 bg-emerald-950/20 text-slate-600 cursor-not-allowed'
-                  : 'border-emerald-800/60 bg-[#09221c] text-slate-200 hover:border-yellow-400 hover:text-yellow-300'
-              }`}
-            >
-              <ChevronLeft className="h-3.5 w-3.5" />
-              <span>Previous Page</span>
-            </button>
-
-            {/* Page Jump Badges */}
-            <div className="flex items-center gap-1 px-2 text-xs font-mono">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
-                <button
-                  key={pageNum}
-                  onClick={() => setCurrentPage(pageNum)}
-                  className={`flex h-7 w-7 items-center justify-center rounded-md font-semibold transition-all duration-200 ${
-                    currentPage === pageNum
-                      ? 'bg-yellow-400 text-slate-950 font-bold shadow-[0_0_12px_rgba(250,204,21,0.3)]'
-                      : 'border border-emerald-900/50 bg-[#09221c] text-slate-300 hover:border-yellow-400 hover:text-yellow-300'
-                  }`}
-                >
-                  {pageNum}
-                </button>
-              ))}
-            </div>
-
-            <button
-              onClick={goToNextPage}
-              disabled={currentPage === totalPages}
-              className={`flex items-center gap-1.5 rounded-lg border px-3.5 py-1.5 text-xs font-medium transition-colors ${
-                currentPage === totalPages
-                  ? 'border-emerald-950 bg-emerald-950/20 text-slate-600 cursor-not-allowed'
-                  : 'border-emerald-800/60 bg-[#09221c] text-slate-200 hover:border-yellow-400 hover:text-yellow-300'
-              }`}
-            >
-              <span>Next Page</span>
-              <ChevronRight className="h-3.5 w-3.5" />
-            </button>
+          {/* RIGHT 3 COLUMNS: SIDEBAR (KEYWORDS DIRECTORY & RAPID BLOGS SLIDER) */}
+          <div className="xl:col-span-3 xl:sticky xl:top-24">
+            <BlogSidebar
+              articles={articles}
+              selectedKeyword={selectedKeyword}
+              onSelectKeyword={handleSelectKeyword}
+              onSelectArticle={onSelectArticle}
+            />
           </div>
         </div>
       </div>
