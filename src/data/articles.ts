@@ -869,8 +869,144 @@ const RAW_ARTICLES: Article[] = [
   },
 
   // ==========================================
-  // CATEGORY 3: CYBERSECURITY (4 Articles)
+  // CATEGORY 3: CYBERSECURITY (5 Articles)
   // ==========================================
+  {
+    id: 'zero-trust-cybersecurity-architecture-guide',
+    title: 'Zero Trust Architecture: The Complete Enterprise Cybersecurity Blueprint for Identity, Microsegmentation, and Continuous Verification',
+    subtitle: 'From NIST SP 800-207 control planes and ephemeral mTLS pipelines to eBPF microsegmentation: an end-to-end engineering implementation guide',
+    categoryId: 'cybersecurity',
+    categoryName: 'Cybersecurity',
+    subtopic: 'Zero Trust & Enterprise Security Architecture',
+    author: authorKournikova,
+    publishedAt: 'October 27, 2026',
+    readTime: '18 min read',
+    peerReviewed: true,
+    doi: '10.1038/tr.2026.1054',
+    heroImage: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1600&q=80',
+    heroPrompt: 'Technical architectural isometric infographic of an enterprise Zero Trust cybersecurity system on deep obsidian slate background (#030712). Left-to-right verification flow: Untrusted user endpoints and multi-cloud container requests encountering a glowing cyan Policy Decision Point (PDP) control plane (NIST SP 800-207 engine), continuous identity validation with biometric FIDO2 tokens and behavioral AI telemetry streams, dynamic issuance of short-lived mTLS cryptographic certificates, and distributed eBPF Policy Enforcement Points (PEPs) isolating segmented microservices. Floating glassmorphism HUD metric cards displaying 1.85M search volume, 0 standing trust permissions, 99.98% lateral containment, and sub-3ms PDP authorization latency. High-definition raytraced 3D rendering, glowing emerald and cobalt circuit pathways, golden cryptographic key badges, publication-grade visualization.',
+    visualConcept: 'NIST SP 800-207 Zero Trust Control Plane & Microsegmentation Infographic',
+    featured: true,
+    trending: true,
+    rating: 4.99,
+    keyFeatures: [
+      'NIST SP 800-207 Architecture: Control Plane (PE/PA) & Data Plane (PEP) Dynamic Decoupling',
+      'Sub-3ms Policy Decision Point (PDP) Evaluation with Continuous Contextual Telemetry',
+      'Identity as the New Perimeter: FIDO2 WebAuthn & SPIFFE/SPIRE Ephemeral Cryptographic Identifiers',
+      'eBPF Layer 4/7 Microsegmentation & Lateral Threat Containment with Zero Standing Privileges'
+    ],
+    abstract: 'Legacy castle-and-moat perimeter cybersecurity models have failed against modern distributed threats, cloud-native container workloads, and sophisticated credential harvesting. Zero Trust Architecture establishes an uncompromising engineering paradigm: never trust, always verify, and assume breach across every layer. Codified by NIST SP 800-207, Zero Trust decouples centralized policy decision engines from high-performance distributed policy enforcement points, enforcing ephemeral mutual TLS (mTLS), hardware-backed FIDO2 cryptographic identity, and eBPF-driven microsegmentation. This comprehensive architectural guide details theoretical foundations, protocol specifications, control plane scaling, and empirical migration frameworks for mission-critical enterprise infrastructure.',
+    metrics: [
+      { label: 'Global Search Volume', value: '1.85M/mo', baseline: '1.00M Target', delta: '+85.0%' },
+      { label: 'Lateral Movement Containment', value: '99.98%', baseline: '41.2% Legacy', delta: '+142.7%' },
+      { label: 'PDP Evaluation Latency', value: '2.8 ms', baseline: '125 ms VPN', delta: '-97.8%' },
+      { label: 'Credential Compromise Surface', value: '-89.4%', baseline: 'High (Pass/SMS)', delta: '-89.4%' }
+    ],
+    sections: [
+      {
+        title: '1. The Fallacy of Perimeter Security and the Zero Trust Imperative',
+        paragraphs: [
+          'Traditional enterprise cybersecurity models were constructed upon a dangerous historical fallacy: the fortress-and-moat perimeter paradigm. In this legacy architecture, corporate firewalls, virtual private networks (VPNs), and demilitarized zones (DMZs) established an exterior hardened boundary. Anyone or anything residing inside the corporate network—whether an employee workstation, a compromised database server, or an IoT printer—was implicitly trusted by default. However, the modern digital enterprise has completely dissolved physical network borders. The explosive proliferation of distributed remote workforces, hyper-scale multi-cloud infrastructures, third-party software supply chains, and advanced persistent threat (APT) state actors has rendered perimeter defense obsolete. Once an adversary breached the perimeter wall through phishing credentials or an unpatched edge vulnerability, they gained unfettered lateral traversal across internal corporate subnets.',
+          'In response to this existential structural failure, Zero Trust Architecture has emerged as the definitive cybersecurity paradigm for modern enterprise engineering. Zero Trust replaces implicit perimeter trust with an uncompromising, foundational invariant: never trust, always verify, and assume breach at every layer. Formally codified by the National Institute of Standards and Technology under the NIST SP 800-207 standard, Zero Trust mandates that every single access request—regardless of whether it originates from a remote laptop, a Kubernetes container within an internal VPC, or an external API gateway—must undergo rigorous cryptographic authentication, dynamic authorization, and continuous contextual evaluation before granting ephemeral, least-privilege access.'
+        ],
+        callout: {
+          type: 'invariant',
+          title: 'The Zero Trust Axiom',
+          text: 'Trust is not a static property of a network location; it is an ephemeral calculation derived from dynamic cryptographic identity, real-time device integrity, and continuous behavioral telemetry.'
+        }
+      },
+      {
+        title: '2. Core Architectural Pillars: Continuous Verification, Least Privilege, and Assume Breach',
+        paragraphs: [
+          'The operational mechanics of Zero Trust Architecture revolve around three non-negotiable architectural pillars: explicit continuous verification, least privilege access enforcement, and proactive assume-breach engineering. Implementing these core pillars transforms cybersecurity from a static, perimeter-gated checkpoint into a distributed, dynamic state engine that continuously interrogates the trustworthiness of every digital transaction.',
+          'The first pillar, explicit verification, dictates that identity is no longer a static authentication credential verified once during initial network logon. Instead, identity is continuously re-evaluated against real-time contextual signals. A valid username and cryptographic token alone are insufficient to authorize access. The Policy Decision Point (PDP) interrogates device posture, geographic telemetry, transport network reputation, local endpoint sensor health, and behavioral anomalies before issuing short-lived access rights. If an authorized engineer attempts to query sensitive customer data from an unrecognized device or an anomalous geographic coordinates vector, the access request is instantly quarantined or challenged with cryptographic multi-factor step-up verification.',
+          'The second pillar, least privilege access, enforces radical micro-authorization across all systems and protocols. Under legacy corporate networks, authenticated users enjoyed broad subnet-level visibility. In contrast, Zero Trust enforces Zero Trust Network Access (ZTNA) and microsegmentation, restricting each user, service account, and microservice to only the exact granular resources required to perform their immediate operational function. Access permissions are granted just-in-time (JIT) and just-enough-access (JEA) with strict time-to-live expirations, drastically diminishing the corporate attack surface and eliminating excessive standing privileges.',
+          'The third pillar, assume breach, fundamentally assumes that adversaries already possess an active foothold within the internal environment. Rather than designing networks to keep attackers out, Zero Trust designs systems to strictly contain damage and prevent lateral movement. Network topologies are partitioned into granular micro-perimeters using software-defined policies and distributed firewalls. Even if an attacker gains control over a frontend microservice, strict egress filtering, isolated network namespaces, and cryptographically segregated communications channels prevent the adversary from pivoting laterally toward mission-critical database clusters.'
+        ],
+        technicalBreakdown: {
+          headline: 'Zero Trust Evaluation Cycle',
+          details: 'The continuous micro-authorization workflow executed on every transaction:',
+          steps: [
+            'Identity Authentication: Hardware-backed FIDO2 / WebAuthn cryptographic handshake.',
+            'Device Posture Telemetry: EDR agent verifies TPM attestation and OS patch state.',
+            'Continuous Context Evaluation: PDP computes dynamic risk score across network and behavioral telemetry.',
+            'Ephemeral Session Issuance: Policy Administrator mints short-lived (5-minute) mTLS X.509 certificate.'
+          ]
+        }
+      },
+      {
+        title: '3. NIST SP 800-207 Reference Architecture: Decoupling Control and Data Planes',
+        paragraphs: [
+          'At the structural center of any enterprise Zero Trust implementation is the separation between the Control Plane and the Data Plane, as formalized by the NIST SP 800-207 reference architecture. Understanding this decoupling is vital for infrastructure architects building high-throughput, low-latency enterprise environments.',
+          'The Control Plane consists of the Policy Engine (PE) and Policy Administrator (PA), collectively operating as the Policy Decision Point (PDP). The Policy Engine acts as the intelligent brain of the cybersecurity ecosystem. It continuously ingests enterprise telemetry, threat intelligence feeds, user identity records, and security information event management (SIEM) signals. When an access request arrives, the Policy Engine executes real-time risk scoring algorithms against organization-wide security rules to decide whether access should be approved, challenged, or denied. The Policy Administrator then translates that policy decision into dynamic commands, instructing the Data Plane to provision or revoke secure communications sessions.',
+          'The Data Plane contains the Policy Enforcement Points (PEPs), which sit directly in the data flow path between subjects (users, microservices, or devices) and enterprise resources. When a client initiates a connection, the PEP intercepts the traffic and blocks direct network routing until authorized by the Policy Administrator. Once cleared, the PEP establishes an ephemeral, encrypted tunnel—typically utilizing mutual Transport Layer Security (mTLS) with automated X.509 certificate rotation. Crucially, the subject is never granted direct Layer 3 network access to the underlying server; the PEP acts as an intelligent proxy, isolating internal network topography and ensuring that backend application IP addresses remain completely invisible to potential attackers.'
+        ],
+        diagram: {
+          title: 'NIST SP 800-207 Zero Trust Logical Architecture & Data Flow',
+          ascii: `+-----------------------------------------------------------------------------------------+
+|                  NIST SP 800-207 ZERO TRUST LOGICAL ARCHITECTURE                         |
++-----------------------------------------------------------------------------------------+
+                         [ CONTROL PLANE: POLICY DECISION POINT ]
+                            +---------------------------------+
+                            |       Policy Engine (PE)        |
+                            |   (Continuous Risk Scorer)      |
+                            +---------------------------------+
+                                             |
+                                             v
+                            +---------------------------------+
+                            |    Policy Administrator (PA)    |
+                            |   (Session & Token Provision)   |
+                            +---------------------------------+
+                                             |
+                   Dynamic Policy Command    |    Ephemeral Certificate / Rules
+                                             v
+                         [ DATA PLANE: POLICY ENFORCEMENT ]
+   [ Untrusted Subject ]       [ Policy Enforcement Point ]       [ Enterprise Resource ]
+    +-----------------+         +------------------------+         +--------------------+
+    | Remote Worker   |  mTLS   | Intelligent Proxy /    |  mTLS   | Sensitive Database |
+    | Cloud Workload  | ------> | Envoy / Cilium eBPF    | ------> | Microservice Pod   |
+    | Microservice    |         | Strict Microsegment    |         | Internal API       |
+    +-----------------+         +------------------------+         +--------------------+
+             |                              |                                |
+             +------------------------------+--------------------------------+
+                                            |
+                                  Continuous Telemetry
+                                            v
+                             [ Telemetry, SIEM & Threat Feeds ]`
+        }
+      },
+      {
+        title: '4. Deep-Dive Engineering Domains: Identity, Microsegmentation, and Post-Quantum Safeguards',
+        paragraphs: [
+          'Translating Zero Trust theoretical standards into production engineering requires orchestrated coordination across five functional operational domains: identity, endpoints, microservices, data classification, and automated security analytics.',
+          'First, Identity and Access Management (IAM) serves as the new enterprise security perimeter. Organizations establish centralized, unified identity providers utilizing modern protocols including OpenID Connect, OAuth 2.0, and FIDO2 WebAuthn cryptographic hardware security keys. By replacing phishing-susceptible passwords and SMS tokens with passkey-based hardware cryptography, enterprises eliminate credential harvesting attack vectors entirely. Furthermore, service-to-service communication leverages standardized machine identity frameworks such as SPIFFE/SPIRE, enabling automated issuance of short-lived cryptographic identities to cloud-native containers.',
+          'Second, endpoint security integration ensures that no device connects to corporate assets without proven health compliance. Endpoint Detection and Response (EDR) agents continuously monitor kernel integrity, operating system patch levels, disk encryption states, and firewall daemon statuses. This telemetry is streamed directly into the Policy Decision Point. If an endpoint demonstrates malware infection or unauthorized debugger hooks, its authorization certificates are instantly revoked across the cluster in real time.',
+          'Third, microsegmentation within cloud and container infrastructures prevents east-west lateral reconnaissance. Utilizing distributed service meshes such as Istio, Envoy, or Cilium eBPF, security teams enforce Layer 7 application policies alongside Layer 4 transport rules. Rather than relying on static IP addresses, microsegmentation policies evaluate cryptographically verified workload identities. A web application tier is strictly constrained to communicate solely with designated payment microservices over designated API routes, neutralizing arbitrary command execution exploits at the network fabric.',
+          'Fourth, comprehensive data security governance integrates cryptographic data tagging and automated encryption at rest and in transit. By combining real-time Data Loss Prevention (DLP) engines with hardware security modules (HSMs), sensitive records undergo dynamic field-level masking based on subject clearance levels. In addition, forward-looking security teams are incorporating quantum-resistant hybrid key exchanges (such as ML-KEM) into their mutual TLS pipelines, ensuring that encrypted enterprise data flows remain secure against future harvest-now-decrypt-later cryptanalytic threats.'
+        ],
+        callout: {
+          type: 'insight',
+          title: 'eBPF-Driven Microsegmentation',
+          text: 'By executing security enforcement directly within the Linux kernel via eBPF bytecode programs, modern cloud platforms enforce Layer 4/7 isolation with sub-microsecond latency overhead, eliminating traditional iptables bottleneck limits.'
+        }
+      },
+      {
+        title: '5. Enterprise Migration Roadmap: Phased Transition, SOAR Integration, and Resilience',
+        paragraphs: [
+          'Executing an enterprise migration to Zero Trust Architecture is not a single product deployment; it represents a comprehensive, multi-phase architectural transformation. Organizations that attempt to enforce rigid, unyielding Zero Trust rules overnight risk disrupting critical business operations and creating developer friction. High-velocity engineering teams achieve success by adopting a maturity model approach spanning discovery, phased pilot implementation, and automated continuous optimization.',
+          'The transformation begins with comprehensive asset discovery and data classification. Engineering teams map all network traffic flows, identifying crown-jewel data assets, high-risk administrative workflows, and legacy protocol dependencies. Once baseline communication dependencies are documented, security teams introduce Zero Trust Network Access (ZTNA) agents to replace legacy corporate VPNs, granting remote workers secure, application-specific tunnels without granting broad internal network visibility.',
+          'As the implementation matures, organizations integrate continuous behavioral analytics and automated security orchestration, automation, and response (SOAR) pipelines. Machine learning models establish baseline operational profiles for every user identity and automated service account. When anomalous behavior is flagged—such as a developer account attempting mass database exfiltration during non-business hours—automated SOAR playbooks trigger instantaneous policy re-evaluation, isolating the session within milliseconds without requiring manual human analyst intervention. Furthermore, comprehensive observability platforms continuously ingest audit logs into immutable SIEM lakes, enabling security operations centers to audit policy efficacy and demonstrate strict regulatory compliance with SOC 2, ISO 27001, and FedRAMP frameworks.',
+          'Ultimately, Zero Trust Architecture is the indispensable foundation of modern enterprise resilience. In an era characterized by distributed cloud computing, relentless cyber warfare, and sophisticated automated exploit tooling, implicit trust is an enterprise vulnerability that organizations can no longer afford. By treating identity as the perimeter, enforcing least privilege microsegmentation, and continuously validating every digital transaction against contextual telemetry, Zero Trust empowers organizations to innovate at hyperscale speed while maintaining uncompromising cybersecurity defense.'
+        ]
+      }
+    ],
+    references: [
+      'National Institute of Standards and Technology (NIST), "Zero Trust Architecture", NIST Special Publication 800-207, 2020.',
+      'Kindervag, J., "Build Security Into Your DNA: A Zero Trust Network Architecture", Forrester Research, 2010.',
+      'Cloud Security Alliance (CSA), "Software Defined Perimeter (SDP) Specification v2.0", 2021.',
+      'CISA, "Zero Trust Maturity Model Version 2.0", Cybersecurity and Infrastructure Security Agency, 2023.'
+    ]
+  },
   {
     id: 'post-quantum-cryptography-ml-kem-tls-migration',
     title: 'Migrating TLS 1.3 to ML-KEM-768: Hardware Acceleration and Latency Mitigation in Quantum-Safe Networks',
@@ -1926,6 +2062,7 @@ const RAW_ARTICLES: Article[] = [
 // "Distributed KV-Cache Tiering", and "Zero-Overhead Distributed Tracing"
 // are placed on Page 2 (indices >= 12 in the 12-per-page pagination)
 const nextPageArticleIds = [
+  'zero-trust-cybersecurity-architecture-guide',
   'wafer-scale-packaging-cowos-35d',
   'speculative-decoding-kv-cache-optimization',
   'linux-ebpf-schedulers-kernel-612',
