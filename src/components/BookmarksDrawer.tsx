@@ -56,14 +56,20 @@ export const BookmarksDrawer: React.FC<BookmarksDrawerProps> = ({
                     <span className="text-slate-400">{article.readTime}</span>
                   </div>
 
-                  <h3
-                    onClick={() => {
-                      onSelectArticle(article.id);
-                      onClose();
-                    }}
-                    className="text-xs font-bold text-white hover:text-emerald-300 transition-colors cursor-pointer line-clamp-2"
-                  >
-                    {article.title}
+                  <h3 className="text-xs font-bold leading-snug line-clamp-2">
+                    <a
+                      href={`/article/${article.id}`}
+                      onClick={(e) => {
+                        if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                          e.preventDefault();
+                          onSelectArticle(article.id);
+                          onClose();
+                        }
+                      }}
+                      className="text-white hover:text-emerald-300 transition-colors cursor-pointer"
+                    >
+                      {article.title}
+                    </a>
                   </h3>
 
                   <div className="mt-2 text-[11px] text-slate-400">
@@ -80,16 +86,20 @@ export const BookmarksDrawer: React.FC<BookmarksDrawerProps> = ({
                     <span>Remove</span>
                   </button>
 
-                  <button
-                    onClick={() => {
-                      onSelectArticle(article.id);
-                      onClose();
+                  <a
+                    href={`/article/${article.id}`}
+                    onClick={(e) => {
+                      if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                        e.preventDefault();
+                        onSelectArticle(article.id);
+                        onClose();
+                      }
                     }}
-                    className="flex items-center gap-1 text-[11px] font-mono text-emerald-400 hover:text-emerald-300"
+                    className="flex items-center gap-1 text-[11px] font-mono text-emerald-400 hover:text-emerald-300 cursor-pointer"
                   >
                     <span>Read Now</span>
                     <ArrowRight className="h-3 w-3" />
-                  </button>
+                  </a>
                 </div>
               </div>
             ))

@@ -261,9 +261,15 @@ export const BlogSidebar: React.FC<BlogSidebarProps> = ({
           className="sidebar-slider-scroll mt-3 max-h-[460px] overflow-y-auto space-y-2.5 pr-1 scroll-smooth"
         >
           {articles.map((article, idx) => (
-            <div
+            <a
               key={article.id}
-              onClick={() => onSelectArticle(article.id)}
+              href={`/article/${article.id}`}
+              onClick={(e) => {
+                if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                  e.preventDefault();
+                  onSelectArticle(article.id);
+                }
+              }}
               className="group flex gap-3 p-2.5 rounded-xl border border-emerald-900/60 bg-[#051712]/90 hover:border-yellow-400 hover:bg-[#092b21] transition-all duration-200 cursor-pointer shadow-sm hover:shadow-[0_0_18px_rgba(250,204,21,0.22)]"
             >
               {/* Thumbnail image */}
@@ -306,7 +312,7 @@ export const BlogSidebar: React.FC<BlogSidebarProps> = ({
                   </span>
                 </div>
               </div>
-            </div>
+            </a>
           ))}
         </div>
 

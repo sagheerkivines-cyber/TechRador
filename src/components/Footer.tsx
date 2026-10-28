@@ -17,16 +17,20 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPolicies, onOp
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 pb-12 border-b border-blue-900/50">
           {/* Column 1: Brand & Editorial Mission (2 cols on large) */}
           <div className="lg:col-span-2 space-y-4">
-            <button
-              onClick={() => {
-                onNavigate({ type: 'home' });
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+            <a
+              href="/"
+              onClick={(e) => {
+                if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                  e.preventDefault();
+                  onNavigate({ type: 'home' });
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
               }}
-              className="text-left focus:outline-none"
+              className="text-left focus:outline-none cursor-pointer inline-block"
               aria-label="TechRador Home"
             >
               <TechRadorLogo size="md" />
-            </button>
+            </a>
 
             <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans max-w-md">
               TechRador is an independent journal of cutting-edge technology, silicon architecture, Linux kernel pipelines, and digital living. Published daily by systems researchers and hardware engineers.
@@ -51,15 +55,19 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPolicies, onOp
             <ul className="space-y-2 text-xs">
               {CATEGORIES.map((cat) => (
                 <li key={cat.id}>
-                  <button
-                    onClick={() => {
-                      onNavigate({ type: 'category', categoryId: cat.id });
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                  <a
+                    href={`/category/${cat.id}`}
+                    onClick={(e) => {
+                      if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                        e.preventDefault();
+                        onNavigate({ type: 'category', categoryId: cat.id });
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }
                     }}
-                    className="text-slate-300 hover:text-yellow-300 transition-colors flex items-center gap-1 text-left"
+                    className="text-slate-300 hover:text-yellow-300 transition-colors flex items-center gap-1 text-left cursor-pointer"
                   >
                     <span>{cat.name}</span>
-                  </button>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -72,49 +80,84 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate, onOpenPolicies, onOp
             </h3>
             <ul className="space-y-2 text-xs">
               <li>
-                <button
-                  onClick={() => { onNavigate({ type: 'privacy' }); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                  className="text-slate-300 hover:text-yellow-300 transition-colors flex items-center justify-between w-full group text-left"
+                <a
+                  href="/privacy"
+                  onClick={(e) => { 
+                    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                      e.preventDefault();
+                      onNavigate({ type: 'privacy' }); 
+                      window.scrollTo({ top: 0, behavior: 'smooth' }); 
+                    }
+                  }}
+                  className="text-slate-300 hover:text-yellow-300 transition-colors flex items-center justify-between w-full group text-left cursor-pointer"
                 >
                   <span className="font-semibold text-white group-hover:text-yellow-300">1. Privacy Policy</span>
                   <span className="text-[10px] font-mono text-emerald-400">GDPR/CCPA</span>
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => { onNavigate({ type: 'terms' }); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                  className="text-slate-300 hover:text-yellow-300 transition-colors flex items-center justify-between w-full group text-left"
+                <a
+                  href="/terms"
+                  onClick={(e) => { 
+                    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                      e.preventDefault();
+                      onNavigate({ type: 'terms' }); 
+                      window.scrollTo({ top: 0, behavior: 'smooth' }); 
+                    }
+                  }}
+                  className="text-slate-300 hover:text-yellow-300 transition-colors flex items-center justify-between w-full group text-left cursor-pointer"
                 >
                   <span className="font-semibold text-white group-hover:text-yellow-300">2. Terms & Conditions</span>
                   <span className="text-[10px] font-mono text-emerald-400">Terms</span>
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => { onNavigate({ type: 'about' }); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                  className="text-slate-300 hover:text-yellow-300 transition-colors flex items-center justify-between w-full group text-left"
+                <a
+                  href="/about"
+                  onClick={(e) => { 
+                    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                      e.preventDefault();
+                      onNavigate({ type: 'about' }); 
+                      window.scrollTo({ top: 0, behavior: 'smooth' }); 
+                    }
+                  }}
+                  className="text-slate-300 hover:text-yellow-300 transition-colors flex items-center justify-between w-full group text-left cursor-pointer"
                 >
                   <span className="font-semibold text-white group-hover:text-yellow-300">3. About Us</span>
                   <span className="text-[10px] font-mono text-emerald-400">Lab & Journal</span>
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => { onNavigate({ type: 'contact' }); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                  className="text-slate-300 hover:text-yellow-300 transition-colors flex items-center justify-between w-full group text-left"
+                <a
+                  href="/contact"
+                  onClick={(e) => { 
+                    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                      e.preventDefault();
+                      onNavigate({ type: 'contact' }); 
+                      window.scrollTo({ top: 0, behavior: 'smooth' }); 
+                    }
+                  }}
+                  className="text-slate-300 hover:text-yellow-300 transition-colors flex items-center justify-between w-full group text-left cursor-pointer"
                 >
                   <span className="font-semibold text-white group-hover:text-yellow-300">4. Contact Us</span>
                   <span className="text-[10px] font-mono text-yellow-400">Direct Desk</span>
-                </button>
+                </a>
               </li>
               <li>
-                <button
-                  onClick={() => { onNavigate({ type: 'disclaimer' }); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                  className="text-slate-300 hover:text-yellow-300 transition-colors flex items-center justify-between w-full group text-left"
+                <a
+                  href="/disclaimer"
+                  onClick={(e) => { 
+                    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                      e.preventDefault();
+                      onNavigate({ type: 'disclaimer' }); 
+                      window.scrollTo({ top: 0, behavior: 'smooth' }); 
+                    }
+                  }}
+                  className="text-slate-300 hover:text-yellow-300 transition-colors flex items-center justify-between w-full group text-left cursor-pointer"
                 >
                   <span className="font-semibold text-white group-hover:text-yellow-300">5. Editorial Policies & Disclaimer</span>
                   <span className="text-[10px] font-mono text-emerald-400">Ethics</span>
-                </button>
+                </a>
               </li>
               <li className="pt-1.5 border-t border-blue-900/60">
                 <button

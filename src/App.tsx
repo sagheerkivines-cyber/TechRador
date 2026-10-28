@@ -26,10 +26,66 @@ import { HomeFeedControlsBar } from './components/HomeFeedControlsBar';
 import { DailyWireTicker } from './components/DailyWireTicker';
 
 import { ARTICLES, getArticleById } from './data/articles';
+import { CATEGORIES } from './data/categories';
 import { CategoryId, ViewState } from './types';
 
+// Helper to parse path into ViewState
+export const parseUrlToView = (pathname: string): ViewState => {
+  const clean = pathname.replace(/\/+$/, '') || '/';
+  
+  const articleMatch = clean.match(/^\/article\/([a-zA-Z0-9_-]+)/);
+  if (articleMatch) {
+    return { type: 'article', articleId: articleMatch[1] };
+  }
+
+  const categoryMatch = clean.match(/^\/category\/([a-zA-Z0-9_-]+)/);
+  if (categoryMatch) {
+    return { type: 'category', categoryId: categoryMatch[1] as CategoryId };
+  }
+
+  if (clean === '/about') return { type: 'about' };
+  if (clean === '/editors') return { type: 'editors' };
+  if (clean === '/contact') return { type: 'contact' };
+  if (clean === '/privacy') return { type: 'privacy' };
+  if (clean === '/terms') return { type: 'terms' };
+  if (clean === '/disclaimer') return { type: 'disclaimer' };
+
+  return { type: 'home' };
+};
+
+// Helper to convert ViewState to canonical URL path
+export const viewToUrl = (view: ViewState): string => {
+  switch (view.type) {
+    case 'home':
+      return '/';
+    case 'article':
+      return `/article/${view.articleId}`;
+    case 'category':
+      return `/category/${view.categoryId}`;
+    case 'about':
+      return '/about';
+    case 'editors':
+      return '/editors';
+    case 'contact':
+      return '/contact';
+    case 'privacy':
+      return '/privacy';
+    case 'terms':
+      return '/terms';
+    case 'disclaimer':
+      return '/disclaimer';
+    default:
+      return '/';
+  }
+};
+
 export default function App() {
-  const [currentView, setCurrentView] = useState<ViewState>({ type: 'home' });
+  const [currentView, setCurrentView] = useState<ViewState>(() => {
+    if (typeof window !== 'undefined') {
+      return parseUrlToView(window.location.pathname);
+    }
+    return { type: 'home' };
+  });
   const [feedViewMode, setFeedViewMode] = useState<'grid' | 'list'>(() => {
     try {
       const saved = localStorage.getItem('techrador_view_mode');
@@ -63,6 +119,67 @@ export default function App() {
   const [policiesDefaultTab, setPoliciesDefaultTab] = useState<PolicyTab>('privacy');
   const [adsenseModalOpen, setAdsenseModalOpen] = useState(false);
 
+  // Synchronize browser address bar URL, document.title, and canonical tag with currentView
+  useEffect(() => {
+    const targetPath = viewToUrl(currentView);
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState({ view: currentView }, '', targetPath);
+    }
+
+    // Dynamic SEO title & Canonical tag update
+    let pageTitle = 'TechRador — Independent Journal of Cutting-Edge Technology & Silicon Architecture';
+    if (currentView.type === 'article') {
+      const art = getArticleById(currentView.articleId);
+      if (art) {
+        pageTitle = `${art.title} — TechRador`;
+      }
+    } else if (currentView.type === 'category') {
+      const cat = CATEGORIES.find(c => c.id === currentView.categoryId);
+      if (cat) {
+        pageTitle = `${cat.name} Archives — TechRador`;
+      }
+    } else if (currentView.type === 'about') {
+      pageTitle = 'About Us & Physical Silicon Characterization Lab — TechRador';
+    } else if (currentView.type === 'editors') {
+      pageTitle = 'Editorial Board & Research Fellows — TechRador';
+    } else if (currentView.type === 'contact') {
+      pageTitle = 'Contact Us & Editorial Desk — TechRador';
+    } else if (currentView.type === 'privacy') {
+      pageTitle = 'Privacy Policy (GDPR/CCPA Compliant) — TechRador';
+    } else if (currentView.type === 'terms') {
+      pageTitle = 'Terms and Conditions — TechRador';
+    } else if (currentView.type === 'disclaimer') {
+      pageTitle = 'Editorial Policies & Ethics Disclaimer — TechRador';
+    }
+    document.title = pageTitle;
+
+    // Sync canonical link tag
+    try {
+      let canonicalTag = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+      if (!canonicalTag) {
+        canonicalTag = document.createElement('link');
+        canonicalTag.rel = 'canonical';
+        document.head.appendChild(canonicalTag);
+      }
+      canonicalTag.href = `${window.location.origin}${targetPath}`;
+    } catch {
+      // ignore in SSR/tests
+    }
+  }, [currentView]);
+
+  // Handle browser back and forward button navigation (popstate)
+  useEffect(() => {
+    const handlePopState = (e: PopStateEvent) => {
+      if (e.state && e.state.view) {
+        setCurrentView(e.state.view);
+      } else {
+        setCurrentView(parseUrlToView(window.location.pathname));
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   // Save bookmarks to localStorage
   useEffect(() => {
     try {
@@ -86,11 +203,20 @@ export default function App() {
 
   const handleNavigate = (view: ViewState) => {
     setCurrentView(view);
+    const targetPath = viewToUrl(view);
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState({ view }, '', targetPath);
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleSelectArticle = (articleId: string) => {
-    setCurrentView({ type: 'article', articleId });
+    const newView: ViewState = { type: 'article', articleId };
+    setCurrentView(newView);
+    const targetPath = `/article/${articleId}`;
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState({ view: newView }, '', targetPath);
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 

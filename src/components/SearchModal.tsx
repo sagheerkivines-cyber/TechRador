@@ -94,13 +94,17 @@ export const SearchModal: React.FC<SearchModalProps> = ({
 
           {results.length > 0 ? (
             results.map((article) => (
-              <div
+              <a
                 key={article.id}
-                onClick={() => {
-                  onSelectArticle(article.id);
-                  onClose();
+                href={`/article/${article.id}`}
+                onClick={(e) => {
+                  if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                    e.preventDefault();
+                    onSelectArticle(article.id);
+                    onClose();
+                  }
                 }}
-                className="group flex items-start justify-between rounded-xl p-3 hover:bg-emerald-900/30 transition-colors cursor-pointer"
+                className="group flex items-start justify-between rounded-xl p-3 hover:bg-emerald-900/30 transition-colors cursor-pointer block"
               >
                 <div className="space-y-1 pr-3">
                   <div className="flex items-center gap-2 text-[11px] text-slate-400">
@@ -118,7 +122,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
                   </p>
                 </div>
                 <ArrowRight className="h-4 w-4 text-emerald-400/60 group-hover:text-emerald-400 shrink-0 self-center group-hover:translate-x-1 transition-transform" />
-              </div>
+              </a>
             ))
           ) : (
             <div className="p-8 text-center text-xs text-slate-400">

@@ -19,6 +19,13 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
   compact = false,
   layout = 'grid',
 }) => {
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+      e.preventDefault();
+      onSelect(article.id);
+    }
+  };
+
   // LIST VIEW LAYOUT
   if (layout === 'list') {
     return (
@@ -27,9 +34,10 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
         <div className="absolute top-0 inset-x-4 h-[2px] bg-gradient-to-r from-transparent via-transparent to-transparent group-hover:via-yellow-400 transition-all duration-500 rounded-t-xl" />
 
         {/* Thumbnail on Left (Desktop) */}
-        <div 
-          onClick={() => onSelect(article.id)}
-          className="relative aspect-[16/10] md:w-72 lg:w-80 shrink-0 overflow-hidden rounded-xl bg-[#071915] cursor-pointer border border-emerald-950 group-hover:border-yellow-400/50 transition-colors"
+        <a 
+          href={`/article/${article.id}`}
+          onClick={handleLinkClick}
+          className="relative aspect-[16/10] md:w-72 lg:w-80 shrink-0 overflow-hidden rounded-xl bg-[#071915] cursor-pointer border border-emerald-950 group-hover:border-yellow-400/50 transition-colors block"
         >
           <img
             src={article.heroImage}
@@ -72,7 +80,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
               <span className="text-[9px] text-slate-300">{article.categoryName.split('&')[0]}</span>
             </div>
           </div>
-        </div>
+        </a>
 
         {/* Content on Right */}
         <div className="flex-1 flex flex-col justify-between min-w-0">
@@ -117,11 +125,14 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
             </div>
 
             {/* Clickable Title */}
-            <h3 
-              onClick={() => onSelect(article.id)}
-              className="text-lg sm:text-xl font-bold text-white group-hover:text-yellow-300 transition-colors duration-200 cursor-pointer leading-snug font-sans"
-            >
-              {article.title}
+            <h3 className="text-lg sm:text-xl font-bold leading-snug font-sans">
+              <a
+                href={`/article/${article.id}`}
+                onClick={handleLinkClick}
+                className="text-white group-hover:text-yellow-300 transition-colors duration-200 cursor-pointer"
+              >
+                {article.title}
+              </a>
             </h3>
 
             {/* Subtitle / Excerpt */}
@@ -163,13 +174,14 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
               </div>
             </div>
 
-            <button
-              onClick={() => onSelect(article.id)}
+            <a
+              href={`/article/${article.id}`}
+              onClick={handleLinkClick}
               className="inline-flex items-center gap-1.5 rounded-lg bg-yellow-400/10 border border-yellow-400/40 px-3.5 py-1.5 text-xs font-mono font-semibold text-yellow-300 group-hover:bg-yellow-400 group-hover:text-slate-950 transition-all duration-200"
             >
               <span>Read Full Paper</span>
               <ArrowUpRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-            </button>
+            </a>
           </div>
         </div>
       </article>
@@ -185,9 +197,10 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
       {/* Top Section with uniform dimensions */}
       <div className="flex flex-col flex-1">
         {/* Fixed Aspect Ratio Thumbnail Media */}
-        <div 
-          onClick={() => onSelect(article.id)}
-          className="relative aspect-[16/10] w-full shrink-0 overflow-hidden rounded-xl bg-[#071915] cursor-pointer mb-3 border border-emerald-950 group-hover:border-yellow-400/50 transition-colors"
+        <a 
+          href={`/article/${article.id}`}
+          onClick={handleLinkClick}
+          className="relative aspect-[16/10] w-full shrink-0 overflow-hidden rounded-xl bg-[#071915] cursor-pointer mb-3 border border-emerald-950 group-hover:border-yellow-400/50 transition-colors block"
         >
           <img
             src={article.heroImage}
@@ -231,7 +244,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
             </span>
             <span className="text-[9px] font-mono text-emerald-400 shrink-0">DOI Verified</span>
           </div>
-        </div>
+        </a>
 
         {/* Metadata Line with uniform height */}
         <div className="flex items-center gap-1.5 text-[11px] text-slate-400 mb-1.5 font-mono h-4 shrink-0 overflow-hidden">
@@ -246,11 +259,16 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
 
         {/* Title: EXACT UNIFORM 2-LINE HEIGHT (No height jumps across cards) */}
         <h3 
-          onClick={() => onSelect(article.id)}
-          className="text-sm sm:text-base font-bold text-white group-hover:text-yellow-300 transition-colors duration-200 cursor-pointer leading-snug font-sans line-clamp-2 h-[2.75rem] flex items-start"
+          className="text-sm sm:text-base font-bold leading-snug font-sans line-clamp-2 h-[2.75rem] flex items-start"
           title={article.title}
         >
-          {article.title}
+          <a
+            href={`/article/${article.id}`}
+            onClick={handleLinkClick}
+            className="text-white group-hover:text-yellow-300 transition-colors duration-200 cursor-pointer hover:underline"
+          >
+            {article.title}
+          </a>
         </h3>
 
         {/* Subtitle / Excerpt: EXACT UNIFORM 2-LINE HEIGHT */}
@@ -282,13 +300,14 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
           </div>
         </div>
 
-        <button
-          onClick={() => onSelect(article.id)}
+        <a
+          href={`/article/${article.id}`}
+          onClick={handleLinkClick}
           className="flex items-center gap-1 text-xs font-mono font-bold text-yellow-400 group-hover:text-yellow-300 group-hover:translate-x-0.5 transition-all shrink-0 ml-2"
         >
           <span>Read</span>
           <ArrowUpRight className="h-3.5 w-3.5" />
-        </button>
+        </a>
       </div>
     </article>
   );

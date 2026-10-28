@@ -86,34 +86,47 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
         {/* Left: Brand Identity */}
         <div className="flex items-center gap-6">
-          <button 
-            onClick={() => { onNavigate({ type: 'home' }); setMobileMenuOpen(false); }}
-            className="flex items-center text-left focus:outline-none"
+          <a 
+            href="/"
+            onClick={(e) => { 
+              if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                e.preventDefault();
+                onNavigate({ type: 'home' }); 
+                setMobileMenuOpen(false); 
+              }
+            }}
+            className="flex items-center text-left focus:outline-none cursor-pointer"
             aria-label="TechRador Home"
           >
             <TechRadorLogo size="md" />
-          </button>
+          </a>
         </div>
 
         {/* Center: Desktop Navigation Links */}
         <nav className="hidden lg:flex items-center gap-1 xl:gap-2">
-          <button
-            onClick={() => onNavigate({ type: 'home' })}
-            className={`px-3 py-1.5 text-sm font-medium transition-all rounded-lg ${
+          <a
+            href="/"
+            onClick={(e) => {
+              if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                e.preventDefault();
+                onNavigate({ type: 'home' });
+              }
+            }}
+            className={`px-3 py-1.5 text-sm font-medium transition-all rounded-lg cursor-pointer ${
               isHome 
                 ? 'text-yellow-300 bg-blue-950/90 border border-yellow-400/50 shadow-[0_0_14px_rgba(250,204,21,0.25)] font-bold' 
                 : 'text-slate-300 hover:text-yellow-300 hover:bg-blue-950/50'
             }`}
           >
             Home Feed
-          </button>
+          </a>
 
           {/* Categories Dropdown */}
           <div className="relative">
             <button
               onClick={() => setCategoryDropdownOpen(!categoryDropdownOpen)}
               onMouseEnter={() => setCategoryDropdownOpen(true)}
-              className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium transition-all rounded-lg ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium transition-all rounded-lg cursor-pointer ${
                 currentCategoryId 
                   ? 'text-yellow-300 bg-blue-950/90 border border-yellow-400/50 shadow-[0_0_14px_rgba(250,204,21,0.25)] font-bold' 
                   : 'text-slate-300 hover:text-yellow-300 hover:bg-blue-950/50'
@@ -129,17 +142,21 @@ export const Navbar: React.FC<NavbarProps> = ({
                 className="absolute left-0 mt-1.5 w-80 rounded-xl border-2 border-yellow-400/40 bg-[#071626] p-2 shadow-2xl backdrop-blur-xl z-50 animate-in fade-in slide-in-from-top-2 duration-150"
               >
                 <div className="px-3 py-1.5 text-[11px] font-mono font-bold text-yellow-400 uppercase border-b border-blue-900/40">
-                  Research Categories (23 Papers)
+                  Research Categories (24 Papers)
                 </div>
                 <div className="mt-1 space-y-0.5">
                   {CATEGORIES.map(category => (
-                    <button
+                    <a
                       key={category.id}
-                      onClick={() => {
-                        onNavigate({ type: 'category', categoryId: category.id });
-                        setCategoryDropdownOpen(false);
+                      href={`/category/${category.id}`}
+                      onClick={(e) => {
+                        if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                          e.preventDefault();
+                          onNavigate({ type: 'category', categoryId: category.id });
+                          setCategoryDropdownOpen(false);
+                        }
                       }}
-                      className={`w-full text-left rounded-lg p-2.5 transition-colors group ${
+                      className={`w-full block text-left rounded-lg p-2.5 transition-colors group cursor-pointer ${
                         currentCategoryId === category.id 
                           ? 'bg-yellow-400/20 text-yellow-200 border border-yellow-400/40' 
                           : 'hover:bg-blue-900/30 text-slate-200'
@@ -154,45 +171,63 @@ export const Navbar: React.FC<NavbarProps> = ({
                       <p className="mt-0.5 text-[11px] text-slate-400 line-clamp-1">
                         {category.subtopics.join(', ')}
                       </p>
-                    </button>
+                    </a>
                   ))}
                 </div>
               </div>
             )}
           </div>
 
-          <button
-            onClick={() => onNavigate({ type: 'about' })}
-            className={`px-3 py-1.5 text-sm font-medium transition-all rounded-lg ${
+          <a
+            href="/about"
+            onClick={(e) => {
+              if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                e.preventDefault();
+                onNavigate({ type: 'about' });
+              }
+            }}
+            className={`px-3 py-1.5 text-sm font-medium transition-all rounded-lg cursor-pointer ${
               isAbout 
                 ? 'text-yellow-300 bg-blue-950/90 border border-yellow-400/50 shadow-[0_0_14px_rgba(250,204,21,0.25)] font-bold' 
                 : 'text-slate-300 hover:text-yellow-300 hover:bg-blue-950/50'
             }`}
           >
             About Us
-          </button>
+          </a>
 
-          <button
-            onClick={() => onNavigate({ type: 'editors' })}
-            className={`px-3 py-1.5 text-sm font-medium transition-all rounded-lg ${
+          <a
+            href="/editors"
+            onClick={(e) => {
+              if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                e.preventDefault();
+                onNavigate({ type: 'editors' });
+              }
+            }}
+            className={`px-3 py-1.5 text-sm font-medium transition-all rounded-lg cursor-pointer ${
               isEditors 
                 ? 'text-yellow-300 bg-blue-950/90 border border-yellow-400/50 shadow-[0_0_14px_rgba(250,204,21,0.25)] font-bold' 
                 : 'text-slate-300 hover:text-yellow-300 hover:bg-blue-950/50'
             }`}
           >
             Editors
-          </button>
+          </a>
 
-          <button
-            onClick={() => onNavigate({ type: 'contact' })}
-            className={`px-3 py-1.5 text-sm font-medium transition-all rounded-lg ${
+          <a
+            href="/contact"
+            onClick={(e) => {
+              if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                e.preventDefault();
+                onNavigate({ type: 'contact' });
+              }
+            }}
+            className={`px-3 py-1.5 text-sm font-medium transition-all rounded-lg cursor-pointer ${
               isContact 
                 ? 'text-yellow-300 bg-blue-950/90 border border-yellow-400/50 shadow-[0_0_14px_rgba(250,204,21,0.25)] font-bold' 
                 : 'text-slate-300 hover:text-yellow-300 hover:bg-blue-950/50'
             }`}
           >
             Contact
-          </button>
+          </a>
 
           <button
             onClick={onOpenPolicies}

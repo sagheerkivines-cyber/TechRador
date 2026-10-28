@@ -50,10 +50,16 @@ export const DailyWireTicker: React.FC<DailyWireTickerProps> = ({
             style={{ animationPlayState: isPaused ? 'paused' : 'running' }}
           >
             {seamlessItems.map((article, idx) => (
-              <button
+              <a
                 key={`${article.id}-${idx}`}
-                onClick={() => onSelectArticle(article.id)}
-                className="group inline-flex items-center gap-2 text-slate-950 hover:text-white transition-colors focus:outline-none"
+                href={`/article/${article.id}`}
+                onClick={(e) => {
+                  if (!e.metaKey && !e.ctrlKey && !e.shiftKey && e.button === 0) {
+                    e.preventDefault();
+                    onSelectArticle(article.id);
+                  }
+                }}
+                className="group inline-flex items-center gap-2 text-slate-950 hover:text-white transition-colors focus:outline-none cursor-pointer"
               >
                 {/* Topic Pill */}
                 <span className="font-mono text-[10px] font-black uppercase tracking-wider bg-black/85 text-yellow-300 px-2 py-0.5 rounded shadow-sm group-hover:bg-black group-hover:text-yellow-200 transition-colors">
@@ -75,7 +81,7 @@ export const DailyWireTicker: React.FC<DailyWireTickerProps> = ({
 
                 {/* Inter-item separator */}
                 <span className="text-amber-900/60 font-black text-sm mx-1">◆</span>
-              </button>
+              </a>
             ))}
           </div>
         </div>
