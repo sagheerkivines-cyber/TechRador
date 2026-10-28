@@ -29,26 +29,66 @@ import { ARTICLES, getArticleById } from './data/articles';
 import { CATEGORIES } from './data/categories';
 import { CategoryId, ViewState } from './types';
 
-// Helper to parse path into ViewState
-export const parseUrlToView = (pathname: string): ViewState => {
+// Helper to parse path, query, and hash into ViewState
+export const parseUrlToView = (pathname: string, search = '', hash = ''): ViewState => {
+  // 1. Check query parameters (?article=... or ?category=... or ?page=...)
+  if (search) {
+    try {
+      const params = new URLSearchParams(search);
+      const articleParam = params.get('article') || params.get('p') || params.get('id') || params.get('slug');
+      if (articleParam) {
+        return { type: 'article', articleId: articleParam };
+      }
+      const catParam = params.get('category') || params.get('cat');
+      if (catParam) {
+        return { type: 'category', categoryId: catParam as CategoryId };
+      }
+      const pageParam = params.get('page');
+      if (pageParam === 'privacy') return { type: 'privacy' };
+      if (pageParam === 'terms') return { type: 'terms' };
+      if (pageParam === 'about') return { type: 'about' };
+      if (pageParam === 'contact') return { type: 'contact' };
+      if (pageParam === 'editors') return { type: 'editors' };
+      if (pageParam === 'disclaimer') return { type: 'disclaimer' };
+    } catch {
+      // ignore
+    }
+  }
+
+  // 2. Check hash routing (#/article/... or #/category/...)
+  if (hash) {
+    const cleanHash = hash.replace(/^#\/?/, '/');
+    const hashArticle = cleanHash.match(/(?:^|\/)article\/([a-zA-Z0-9_-]+)/);
+    if (hashArticle) return { type: 'article', articleId: hashArticle[1] };
+    const hashCat = cleanHash.match(/(?:^|\/)category\/([a-zA-Z0-9_-]+)/);
+    if (hashCat) return { type: 'category', categoryId: hashCat[1] as CategoryId };
+    if (cleanHash.includes('privacy')) return { type: 'privacy' };
+    if (cleanHash.includes('terms')) return { type: 'terms' };
+    if (cleanHash.includes('about')) return { type: 'about' };
+    if (cleanHash.includes('contact')) return { type: 'contact' };
+    if (cleanHash.includes('editors')) return { type: 'editors' };
+    if (cleanHash.includes('disclaimer')) return { type: 'disclaimer' };
+  }
+
+  // 3. Check pathname (works with subfolders and trailing slashes)
   const clean = pathname.replace(/\/+$/, '') || '/';
   
-  const articleMatch = clean.match(/^\/article\/([a-zA-Z0-9_-]+)/);
+  const articleMatch = clean.match(/(?:^|\/)article\/([a-zA-Z0-9_-]+)/);
   if (articleMatch) {
     return { type: 'article', articleId: articleMatch[1] };
   }
 
-  const categoryMatch = clean.match(/^\/category\/([a-zA-Z0-9_-]+)/);
+  const categoryMatch = clean.match(/(?:^|\/)category\/([a-zA-Z0-9_-]+)/);
   if (categoryMatch) {
     return { type: 'category', categoryId: categoryMatch[1] as CategoryId };
   }
 
-  if (clean === '/about') return { type: 'about' };
-  if (clean === '/editors') return { type: 'editors' };
-  if (clean === '/contact') return { type: 'contact' };
-  if (clean === '/privacy') return { type: 'privacy' };
-  if (clean === '/terms') return { type: 'terms' };
-  if (clean === '/disclaimer') return { type: 'disclaimer' };
+  if (clean.endsWith('/about') || clean === '/about') return { type: 'about' };
+  if (clean.endsWith('/editors') || clean === '/editors') return { type: 'editors' };
+  if (clean.endsWith('/contact') || clean === '/contact') return { type: 'contact' };
+  if (clean.endsWith('/privacy') || clean === '/privacy') return { type: 'privacy' };
+  if (clean.endsWith('/terms') || clean === '/terms') return { type: 'terms' };
+  if (clean.endsWith('/disclaimer') || clean === '/disclaimer') return { type: 'disclaimer' };
 
   return { type: 'home' };
 };
@@ -82,7 +122,7 @@ export const viewToUrl = (view: ViewState): string => {
 export default function App() {
   const [currentView, setCurrentView] = useState<ViewState>(() => {
     if (typeof window !== 'undefined') {
-      return parseUrlToView(window.location.pathname);
+      return parseUrlToView(window.location.pathname, window.location.search, window.location.hash);
     }
     return { type: 'home' };
   });
@@ -173,7 +213,7 @@ export default function App() {
       if (e.state && e.state.view) {
         setCurrentView(e.state.view);
       } else {
-        setCurrentView(parseUrlToView(window.location.pathname));
+        setCurrentView(parseUrlToView(window.location.pathname, window.location.search, window.location.hash));
       }
     };
     window.addEventListener('popstate', handlePopState);
@@ -304,7 +344,36 @@ export default function App() {
 
         {currentView.type === 'article' && (
           (() => {
-            const currentArticle = getArticleById(currentView.articleId) || ARTICLES[0];
+            const currentArticle = getArticleById(currentView.articleId);
+            if (!currentArticle) {
+              return (
+                <div className="mx-auto max-w-3xl px-4 py-20 text-center">
+                  <div className="inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-yellow-400/20 border-2 border-yellow-400 text-yellow-300 mb-6 shadow-xl">
+                    <span className="font-mono text-2xl font-bold">404</span>
+                  </div>
+                  <h1 className="text-2xl sm:text-3xl font-extrabold text-white mb-3">
+                    Article Not Found in Archive
+                  </h1>
+                  <p className="text-sm text-slate-300 max-w-lg mx-auto mb-6 leading-relaxed">
+                    The requested research article slug <code className="bg-black/80 px-2 py-1 rounded text-yellow-300 font-mono text-xs border border-yellow-400/40">{currentView.articleId}</code> does not exist in our peer-reviewed library.
+                  </p>
+                  <div className="flex flex-wrap items-center justify-center gap-3">
+                    <button
+                      onClick={() => handleNavigate({ type: 'home' })}
+                      className="inline-flex items-center gap-2 rounded-xl bg-yellow-400 px-5 py-2.5 text-xs font-mono font-bold text-slate-950 hover:bg-yellow-300 transition-all shadow-lg cursor-pointer"
+                    >
+                      <span>← Return to Home Feed ({ARTICLES.length} Papers)</span>
+                    </button>
+                    <button
+                      onClick={() => setSearchModalOpen(true)}
+                      className="inline-flex items-center gap-2 rounded-xl border border-emerald-700 bg-emerald-950/80 px-5 py-2.5 text-xs font-mono font-bold text-emerald-300 hover:text-white hover:border-yellow-400 transition-all cursor-pointer"
+                    >
+                      <span>Search All Publications</span>
+                    </button>
+                  </div>
+                </div>
+              );
+            }
             return (
               <ArticleReader
                 article={currentArticle}

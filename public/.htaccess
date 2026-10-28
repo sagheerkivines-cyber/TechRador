@@ -1,0 +1,30 @@
+# =========================================================================
+# TechRador SPA Deep-Linking & Routing Rules (.htaccess)
+# Ensures clean article URLs, Google Search Console indexing, and no 404s
+# =========================================================================
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1. Allow existing files or folders to be served directly
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # 2. Rewrite all other requests to root index.html for SPA router
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Browser Caching & Gzip Compression for Fast SEO Delivery
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 month"
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/xml "access plus 1 hour"
+  ExpiresByType text/plain "access plus 1 hour"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+</IfModule>

@@ -208,36 +208,69 @@ export const ArticleReader: React.FC<ArticleReaderProps> = ({
 
         {/* Canonical Direct Indexing Link Box */}
         <div className="my-6 rounded-2xl border-2 border-emerald-600/70 bg-gradient-to-r from-[#031d17] via-[#062c22] to-[#031d17] p-4.5 shadow-2xl">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-            <div className="space-y-1.5 min-w-0 flex-1">
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse shrink-0" />
                 <span className="text-xs font-mono font-bold uppercase tracking-wider text-emerald-300">
-                  Direct Canonical Indexing Link
+                  Canonical Direct Link & Indexing Status
                 </span>
                 <span className="text-[10px] font-mono bg-yellow-400/20 text-yellow-300 border border-yellow-400/50 px-2 py-0.5 rounded font-bold">
                   Sitemap Priority 0.85
                 </span>
-                <span className="text-[10px] font-mono text-slate-300 hidden sm:inline">
-                  (Ready for Google Search Console & Social Sharing)
+                <span className="text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-2 py-0.5 rounded font-bold">
+                  Pre-Rendered Static HTML (HTTP 200 OK)
                 </span>
               </div>
-              <div className="flex items-center gap-2 text-xs font-mono bg-black/75 border border-emerald-900/80 px-3 py-2.5 rounded-xl break-all">
-                <span className="text-yellow-400 font-bold select-none shrink-0">URL:</span>
-                <span className="text-emerald-300 font-semibold select-all">
-                  {typeof window !== 'undefined' ? `${window.location.origin}/article/${article.id}` : `https://techrador.com/article/${article.id}`}
-                </span>
-              </div>
+
+              {/* Status indicator */}
+              <span className="text-[11px] font-mono text-slate-300">
+                Slug: <strong className="text-yellow-400">{article.id}</strong>
+              </span>
             </div>
 
-            <button
-              onClick={handleCopyLink}
-              className="inline-flex items-center justify-center gap-2 shrink-0 rounded-xl bg-yellow-400 hover:bg-yellow-300 px-4 py-2.5 text-xs font-mono font-bold text-slate-950 transition-all shadow-lg hover:shadow-[0_0_20px_rgba(250,204,21,0.45)] active:scale-95 cursor-pointer"
-              title="Copy direct article URL for Google Search Console indexing"
-            >
-              {copiedLink ? <Check className="h-4 w-4 text-slate-950 font-bold" /> : <Share2 className="h-4 w-4 text-slate-950" />}
-              <span>{copiedLink ? 'Copied to Clipboard!' : 'Copy Article Link'}</span>
-            </button>
+            {/* Display Full Live URL */}
+            <div className="flex items-center gap-2 text-xs font-mono bg-black/75 border border-emerald-900/80 px-3 py-2.5 rounded-xl break-all">
+              <span className="text-yellow-400 font-bold select-none shrink-0">Direct URL:</span>
+              <span className="text-emerald-300 font-semibold select-all flex-1">
+                {typeof window !== 'undefined' ? `${window.location.origin}/article/${article.id}` : `https://techrador.com/article/${article.id}`}
+              </span>
+            </div>
+
+            {/* Action Buttons: Open in New Tab + Copy Live URL + Copy Canonical URL */}
+            <div className="flex flex-wrap items-center gap-2 pt-1">
+              <a
+                href={`/article/${article.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 px-3.5 py-2 text-xs font-mono font-bold text-slate-950 transition-all shadow-md active:scale-95 cursor-pointer"
+                title="Verify that this article opens in a new tab without 404"
+              >
+                <ArrowUpRight className="h-3.5 w-3.5" />
+                <span>Open in New Tab (Test URL)</span>
+              </a>
+
+              <button
+                onClick={handleCopyLink}
+                className="inline-flex items-center gap-1.5 rounded-xl bg-yellow-400 hover:bg-yellow-300 px-3.5 py-2 text-xs font-mono font-bold text-slate-950 transition-all shadow-md hover:shadow-[0_0_16px_rgba(250,204,21,0.4)] active:scale-95 cursor-pointer"
+                title="Copy live URL for Google Search Console indexing"
+              >
+                {copiedLink ? <Check className="h-3.5 w-3.5 text-slate-950 font-bold" /> : <Share2 className="h-3.5 w-3.5 text-slate-950" />}
+                <span>{copiedLink ? 'Copied to Clipboard!' : 'Copy Live Article Link'}</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(`https://techrador.com/article/${article.id}`);
+                  setCopiedLink(true);
+                  setTimeout(() => setCopiedLink(false), 2500);
+                }}
+                className="inline-flex items-center gap-1.5 rounded-xl border border-yellow-400/50 bg-black/60 hover:bg-yellow-400/20 px-3 py-2 text-xs font-mono text-yellow-300 transition-all cursor-pointer"
+                title="Copy official techrador.com domain URL for sitemap & schema submission"
+              >
+                <span>Copy https://techrador.com URL</span>
+              </button>
+            </div>
           </div>
         </div>
 
